@@ -1,0 +1,25 @@
+<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sparkle/Star Icon -->
+  <g>
+    <path d="M12 4L14.5 10.5L21 13L14.5 15.5L12 22L9.5 15.5L3 13L9.5 10.5L12 4Z" fill="url(#gradient1)"/>
+    <path d="M12 8L13.5 12L17.5 13.5L13.5 15L12 19L10.5 15L6.5 13.5L10.5 12L12 8Z" fill="url(#gradient2)"/>
+  </g>
+  
+  <!-- Syntera Text -->
+  <text x="28" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="url(#gradient1)">
+    Syntera
+  </text>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
+
