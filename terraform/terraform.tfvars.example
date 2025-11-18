@@ -1,0 +1,32 @@
+# Copy this file to terraform.tfvars and fill in your values
+# DO NOT commit terraform.tfvars to version control
+
+aws_region = "us-east-1"
+environment = "dev"
+
+# Database credentials
+mongodb_username = "syntera_admin"
+mongodb_password = "CHANGE_ME_STRONG_PASSWORD"
+mongodb_instance_class = "db.t3.small"  # Smallest DocumentDB instance
+
+# Redis
+redis_node_type = "cache.t3.micro"
+
+# RabbitMQ
+rabbitmq_username = "admin"
+rabbitmq_password = "CHANGE_ME_STRONG_PASSWORD"
+rabbitmq_instance_type = "mq.t3.micro"
+
+# Infrastructure state
+infrastructure_active = true
+
+# MongoDB development access
+# Add your IP address here for direct MongoDB access during development
+# Format: ["YOUR_IP/32"]
+# Example: ["46.193.57.231/32"]
+# Leave empty [] for production (no external access)
+mongodb_dev_access_ips = []
+
+# State bucket (set to true only on first run)
+create_state_bucket = false
+

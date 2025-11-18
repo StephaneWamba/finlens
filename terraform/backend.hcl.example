@@ -1,0 +1,11 @@
+# Copy this file to backend.hcl and fill in your values
+# DO NOT commit backend.hcl to version control
+
+bucket = "syntera-terraform-state-YOUR_ACCOUNT_ID"
+key    = "terraform.tfstate"
+region = "us-east-1"
+
+# Optional: Enable DynamoDB for state locking
+# dynamodb_table = "terraform-state-lock"
+# encrypt        = true
+

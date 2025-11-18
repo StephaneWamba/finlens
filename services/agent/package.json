@@ -1,0 +1,38 @@
+{
+  "name": "@syntera/agent-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --tsconfig tsconfig.json src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@pinecone-database/pinecone": "^1.1.2",
+    "@supabase/supabase-js": "^2.39.0",
+    "@tanstack/react-query": "^5.90.9",
+    "@tanstack/react-query-devtools": "^5.90.2",
+    "amqplib": "^0.10.3",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "livekit-server-sdk": "^2.0.0",
+    "openai": "^4.20.0",
+    "winston": "^3.11.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.8",
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/node": "^20.19.25",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
