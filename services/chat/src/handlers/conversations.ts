@@ -11,9 +11,14 @@ import { z } from 'zod'
 
 const logger = createLogger('chat-service:conversations')
 
+// UUID validation regex
+const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
 // Create conversation schema
 const CreateConversationSchema = z.object({
-  agentId: z.string().min(1),
+  agentId: z.string().min(1).refine((id) => uuidRegex.test(id), {
+    message: 'Agent ID must be a valid UUID',
+  }),
   channel: z.enum(['chat', 'voice', 'video', 'email', 'sms']).default('chat'),
   metadata: z.record(z.string(), z.unknown()).optional(),
 })

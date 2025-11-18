@@ -25,6 +25,12 @@ export interface Conversation {
   ended_at?: string
   tags?: string[]
   metadata?: Record<string, unknown>
+  threads?: Array<{
+    id: string
+    title: string
+    created_at: string
+    message_count?: number
+  }>
   created_at: string
   updated_at: string
 }
@@ -32,6 +38,7 @@ export interface Conversation {
 export interface Message {
   _id: string
   conversation_id: string
+  thread_id?: string
   sender_type: 'user' | 'agent' | 'system'
   role: 'user' | 'assistant' | 'system'
   content: string
@@ -58,6 +65,18 @@ export interface Message {
       user_id: string
       created_at: string
     }>
+    intent?: {
+      category: 'question' | 'complaint' | 'request' | 'purchase' | 'support' | 'feedback' | 'greeting' | 'goodbye' | 'other'
+      confidence: number
+      reasoning?: string
+    }
+    sentiment?: {
+      sentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+      score: number
+      confidence: number
+      emotions?: string[]
+      reasoning?: string
+    }
     [key: string]: unknown
   }
   created_at: string
@@ -73,6 +92,7 @@ export interface SendMessageInput {
   conversationId: string
   content: string
   messageType?: 'text' | 'audio' | 'video' | 'file' | 'image'
+  threadId?: string
   attachments?: Array<{
     url: string
     type: string
@@ -106,10 +126,14 @@ async function fetchConversation(id: string): Promise<{ conversation: Conversati
   return await response.json()
 }
 
-async function fetchMessages(conversationId: string, params?: { limit?: number; offset?: number }): Promise<{ messages: Message[]; total: number }> {
+async function fetchMessages(
+  conversationId: string, 
+  params?: { limit?: number; offset?: number; threadId?: string | null }
+): Promise<{ messages: Message[]; total: number }> {
   const queryParams = new URLSearchParams()
   if (params?.limit) queryParams.append('limit', params.limit.toString())
   if (params?.offset) queryParams.append('offset', params.offset.toString())
+  if (params?.threadId) queryParams.append('thread_id', params.threadId)
 
   const response = await fetch(`/api/conversations/${conversationId}/messages?${queryParams.toString()}`)
   if (!response.ok) {
@@ -150,6 +174,8 @@ export function useConversations(params?: { status?: string; channel?: string; l
   return useQuery({
     queryKey: ['conversations', params],
     queryFn: () => fetchConversations(params),
+    staleTime: CACHE_TTL.MEDIUM, // 30 seconds
+    keepPreviousData: true, // Keep previous data while loading new page
   })
 }
 
@@ -163,13 +189,26 @@ export function useConversation(id: string) {
 
 import { PAGINATION, CACHE_TTL } from '@/lib/constants/api'
 
-export function useMessages(conversationId: string, params?: { limit?: number; offset?: number }) {
+export function useMessages(
+  conversationId: string, 
+  params?: { limit?: number; offset?: number; threadId?: string | null }
+) {
+  const cacheKey = [
+    'conversations', 
+    conversationId, 
+    'messages', 
+    params?.threadId || null,
+    params?.limit,
+    params?.offset,
+  ]
+  
   return useQuery({
-    queryKey: ['conversations', conversationId, 'messages', params],
+    queryKey: cacheKey,
     queryFn: () => fetchMessages(conversationId, params),
     enabled: !!conversationId,
-    staleTime: CACHE_TTL.MEDIUM, // 30 seconds
+    staleTime: CACHE_TTL.LONG, // 1 minute for better performance
     refetchInterval: false, // Disable automatic refetching
+    keepPreviousData: true, // Keep previous data while loading new page
   })
 }
 

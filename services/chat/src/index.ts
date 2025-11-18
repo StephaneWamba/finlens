@@ -17,6 +17,7 @@ import { createLogger } from '@syntera/shared/logger/index.js'
 import { authenticateSocket, type AuthenticatedSocket } from './middleware/auth.js'
 import { handleSendMessage, handleTyping } from './handlers/messages.js'
 import { handleCreateConversation, handleJoinConversation, handleLeaveConversation } from './handlers/conversations.js'
+import { handleCreateThread, handleSwitchThread } from './handlers/threads.js'
 import conversationsRouter from './routes/conversations.js'
 
 const logger = createLogger('chat-service')
@@ -95,6 +96,15 @@ io.on('connection', (socket: AuthenticatedSocket) => {
 
   socket.on('typing', (data) => {
     handleTyping(io, socket, data)
+  })
+
+  // Thread events
+  socket.on('thread:create', (data) => {
+    handleCreateThread(io, socket, data)
+  })
+
+  socket.on('thread:switch', (data) => {
+    handleSwitchThread(io, socket, data)
   })
 
   socket.on('disconnect', () => {

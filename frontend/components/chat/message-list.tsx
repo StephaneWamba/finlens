@@ -3,7 +3,8 @@
 import { useEffect, useRef } from 'react'
 import { MessageBubble } from './message-bubble'
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton'
-import { MessageSquare } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { MessageSquare, ChevronUp, Loader2 } from 'lucide-react'
 import type { Message } from '@/lib/api/chat'
 
 interface MessageListProps {
@@ -11,18 +12,36 @@ interface MessageListProps {
   conversationId: string
   isLoading?: boolean
   currentUserId?: string
+  total?: number
+  hasMore?: boolean
+  onLoadMore?: () => void
+  isLoadingMore?: boolean
 }
 
-export function MessageList({ messages, conversationId, isLoading, currentUserId }: MessageListProps) {
+export function MessageList({ 
+  messages, 
+  conversationId, 
+  isLoading, 
+  currentUserId,
+  total,
+  hasMore,
+  onLoadMore,
+  isLoadingMore
+}: MessageListProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const previousMessageCount = useRef(messages.length)
 
   useEffect(() => {
-    // Auto-scroll to bottom when new messages arrive
-    if (containerRef.current) {
+    // Auto-scroll to bottom when new messages arrive (only if new messages were added at the end)
+    if (containerRef.current && messages.length > previousMessageCount.current) {
+      const wasAtBottom = containerRef.current.scrollHeight - containerRef.current.scrollTop - containerRef.current.clientHeight < 100
+      if (wasAtBottom) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight
+      }
     }
-  }, [messages])
+    previousMessageCount.current = messages.length
+  }, [messages.length])
 
   if (isLoading) {
     return (
@@ -52,6 +71,34 @@ export function MessageList({ messages, conversationId, isLoading, currentUserId
           </div>
         ) : (
           <div className="space-y-1">
+            {hasMore && onLoadMore && (
+              <div className="flex justify-center py-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onLoadMore}
+                  disabled={isLoadingMore}
+                  className="gap-2"
+                >
+                  {isLoadingMore ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Loading older messages...
+                    </>
+                  ) : (
+                    <>
+                      <ChevronUp className="h-4 w-4" />
+                      Load older messages
+                      {total !== undefined && (
+                        <span className="text-xs text-muted-foreground ml-1">
+                          ({total - messages.length} remaining)
+                        </span>
+                      )}
+                    </>
+                  )}
+                </Button>
+              </div>
+            )}
             {messages.map((message) => (
               <MessageBubble
                 key={message._id}

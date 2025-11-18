@@ -9,6 +9,7 @@
     "lint": "next lint",
     "db:migrate": "node scripts/migrate.js",
     "db:seed": "tsx scripts/check-and-seed-mongodb.ts",
+    "db:delete-conversations": "tsx scripts/delete-all-conversations.ts",
     "test:load": "tsx scripts/load-test.ts",
     "build:all": "pnpm run build:shared && pnpm run build:chat && pnpm run build:agent && pnpm run build:kb",
     "build:shared": "pnpm --filter @syntera/shared build",

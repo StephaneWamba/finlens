@@ -55,6 +55,13 @@ router.get(
       const { id } = req.params
       const companyId = req.user!.company_id!
 
+      // Validate UUID format
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      if (!uuidRegex.test(id)) {
+        logger.warn('Invalid agent ID format', { id })
+        return badRequest(res, `Invalid agent ID format. Expected UUID, got: ${id}`)
+      }
+
       const { data: agent, error } = await supabase
         .from('agent_configs')
         .select('*')
@@ -65,6 +72,11 @@ router.get(
       if (error) {
         if (error.code === 'PGRST116') {
           return notFound(res, 'Agent', id)
+        }
+        // Handle UUID format errors from Supabase
+        if (error.message?.includes('invalid input syntax for type uuid')) {
+          logger.warn('Invalid UUID format from Supabase', { id, error: error.message })
+          return badRequest(res, `Invalid agent ID format: ${id}`)
         }
         logger.error('Failed to fetch agent', { error: error.message })
         return res.status(500).json({ error: 'Failed to fetch agent' })

@@ -25,7 +25,13 @@ export interface IConversation extends Document {
   summary?: string // Conversation summary for context management
   summary_updated_at?: Date // When summary was last updated
   summary_message_count?: number // Message count when summary was created
-  created_at: Date
+  threads?: Array<{
+    id: string
+    title: string
+    created_at: Date
+    message_count?: number
+  }> // Conversation threads for organizing topics
+   created_at: Date
   updated_at: Date
 }
 
@@ -87,6 +93,15 @@ const ConversationSchema = new Schema<IConversation>(
     },
     summary_message_count: {
       type: Number,
+    },
+    threads: {
+      type: [{
+        id: String,
+        title: String,
+        created_at: Date,
+        message_count: Number,
+      }],
+      default: [],
     },
   },
   {

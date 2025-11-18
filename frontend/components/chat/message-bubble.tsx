@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { formatDistanceToNow } from 'date-fns'
 import { Bot, User, Sparkles, Download, Smile, CheckCheck } from 'lucide-react'
@@ -15,6 +16,8 @@ import { useUpdateMessage } from '@/lib/api/chat'
 import { createClient } from '@/lib/supabase/client'
 import type { Message } from '@/lib/api/chat'
 import type { EmojiClickData } from 'emoji-picker-react'
+import { SentimentBadge } from './sentiment-badge'
+import { IntentBadge } from './intent-badge'
 
 // Lazy load markdown renderer (heavy component)
 const ReactMarkdown = dynamic(() => import('react-markdown'), {
@@ -43,6 +46,7 @@ interface MessageBubbleProps {
 const QUICK_REACTIONS = ['👍', '❤️', '😂', '😮', '😢', '🙏']
 
 export function MessageBubble({ message, conversationId, isOwn = false }: MessageBubbleProps) {
+  const { theme } = useTheme()
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   const [showReactionPicker, setShowReactionPicker] = useState(false)
   const updateMessage = useUpdateMessage()
@@ -63,6 +67,11 @@ export function MessageBubble({ message, conversationId, isOwn = false }: Messag
 
   const handleReaction = (emoji: string) => {
     if (!currentUserId) return
+    
+    // Skip if message ID is temporary (optimistic update)
+    if (message._id.startsWith('temp-')) {
+      return
+    }
     
     const userReaction = reactions.find((r) => r.user_id === currentUserId && r.emoji === emoji)
     updateMessage.mutate({
@@ -93,7 +102,8 @@ export function MessageBubble({ message, conversationId, isOwn = false }: Messag
     }
     
     // Only mark as read once per message, even if component re-renders
-    if (isOwn && !hasMarkedAsReadRef.current && currentUserId) {
+    // Skip if message ID is temporary (optimistic update)
+    if (isOwn && !hasMarkedAsReadRef.current && currentUserId && !message._id.startsWith('temp-')) {
       hasMarkedAsReadRef.current = true // Set immediately to prevent duplicate calls
       
       // Debounce: wait 3 seconds before marking as read
@@ -145,13 +155,13 @@ export function MessageBubble({ message, conversationId, isOwn = false }: Messag
       <div className={cn('flex-1 min-w-0 flex flex-col', isOwn && 'items-end')}>
         <div
           className={cn(
-            'rounded-2xl px-4 py-3 max-w-[85%] w-full shadow-sm transition-all',
+            'rounded-2xl px-4 py-3 max-w-[85%] sm:max-w-[75%] w-full shadow-sm transition-all',
             isAgent
               ? 'bg-muted/50 border border-border/50 text-foreground'
               : isSystem
               ? 'bg-muted/30 border border-border/30 text-muted-foreground'
               : isOwn
-              ? 'bg-primary/85 dark:bg-primary/75 text-primary-foreground/90 dark:text-primary-foreground/95 shadow-md'
+              ? 'bg-blue-600 dark:bg-blue-700 text-white shadow-md'
               : 'bg-accent text-accent-foreground border border-border/50'
           )}
         >
@@ -289,15 +299,28 @@ export function MessageBubble({ message, conversationId, isOwn = false }: Messag
             </ReactMarkdown>
             </div>
           )}
-          {message.ai_metadata && (
+          {/* AI Metadata, Intent, and Sentiment */}
+          {(message.ai_metadata || message.metadata?.intent || message.metadata?.sentiment) && (
             <div className="mt-3 pt-2 flex flex-wrap gap-1.5 border-t border-border/50">
-              {message.ai_metadata.model && (
+              {message.metadata?.intent?.category && (
+                <IntentBadge
+                  intent={message.metadata.intent.category as 'question' | 'complaint' | 'request' | 'purchase' | 'support' | 'feedback' | 'greeting' | 'goodbye' | 'other'}
+                  confidence={message.metadata.intent.confidence}
+                />
+              )}
+              {message.metadata?.sentiment && (
+                <SentimentBadge
+                  sentiment={message.metadata.sentiment.sentiment}
+                  score={message.metadata.sentiment.score}
+                />
+              )}
+              {message.ai_metadata?.model && (
                 <Badge variant="secondary" className="text-xs font-normal">
                   <Sparkles className="h-3 w-3 mr-1" />
                   {message.ai_metadata.model}
                 </Badge>
               )}
-              {message.ai_metadata.tokens_used && (
+              {message.ai_metadata?.tokens_used && (
                 <Badge variant="outline" className="text-xs font-normal">
                   {message.ai_metadata.tokens_used} tokens
                 </Badge>
@@ -364,6 +387,8 @@ export function MessageBubble({ message, conversationId, isOwn = false }: Messag
                       onEmojiClick={(data: EmojiClickData) => handleReaction(data.emoji)}
                       autoFocusSearch={false}
                       width={300}
+                      // @ts-ignore - emoji-picker-react theme prop works but types are strict
+                      theme={theme === 'dark' ? 'dark' : 'light'}
                     />
                   </div>
                 </div>

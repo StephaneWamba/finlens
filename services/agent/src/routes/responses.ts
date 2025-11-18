@@ -9,6 +9,7 @@ import { generateResponse } from '../services/openai.js'
 import { createLogger } from '@syntera/shared/logger/index.js'
 import { processAttachments } from '../utils/attachments.js'
 import { detectIntent, getIntentBasedPromptEnhancement } from '../utils/intent-detection.js'
+import { analyzeSentiment, getSentimentBasedPromptEnhancement } from '../utils/sentiment-analysis.js'
 import { z } from 'zod'
 
 const logger = createLogger('agent-service:responses')
@@ -121,8 +122,9 @@ router.post(
 
       // Detect intent from user message (non-blocking, but we'll use it if available)
       let intentEnhancement = ''
+      let intentResult = null
       try {
-        const intentResult = await detectIntent(message)
+        intentResult = await detectIntent(message)
         intentEnhancement = getIntentBasedPromptEnhancement(intentResult.intent)
         logger.debug('Intent detected', { intent: intentResult.intent, confidence: intentResult.confidence })
       } catch (intentError) {
@@ -130,10 +132,29 @@ router.post(
         // Continue without intent enhancement
       }
 
-      // Enhance system prompt with intent-based guidance
+      // Analyze sentiment from user message
+      let sentimentEnhancement = ''
+      let sentimentResult = null
+      try {
+        sentimentResult = await analyzeSentiment(message)
+        sentimentEnhancement = getSentimentBasedPromptEnhancement(sentimentResult.sentiment, sentimentResult.score)
+        logger.debug('Sentiment analyzed', { 
+          sentiment: sentimentResult.sentiment, 
+          score: sentimentResult.score,
+          confidence: sentimentResult.confidence 
+        })
+      } catch (sentimentError) {
+        logger.warn('Failed to analyze sentiment', { error: sentimentError })
+        // Continue without sentiment enhancement
+      }
+
+      // Enhance system prompt with intent and sentiment-based guidance
       let enhancedSystemPrompt = agent.system_prompt
       if (intentEnhancement) {
         enhancedSystemPrompt += `\n\n${intentEnhancement}`
+      }
+      if (sentimentEnhancement) {
+        enhancedSystemPrompt += `\n\n${sentimentEnhancement}`
       }
 
       const enhancedMessage = await processAttachments(message, attachments)
@@ -155,6 +176,16 @@ router.post(
           model: result.model,
           tokensUsed: result.tokensUsed,
           knowledgeBaseUsed: !!knowledgeBaseContext,
+          intent: intentResult ? {
+            category: intentResult.intent,
+            confidence: intentResult.confidence,
+          } : undefined,
+          sentiment: sentimentResult ? {
+            sentiment: sentimentResult.sentiment,
+            score: sentimentResult.score,
+            confidence: sentimentResult.confidence,
+            emotions: sentimentResult.emotions,
+          } : undefined,
         },
       })
     } catch (error) {

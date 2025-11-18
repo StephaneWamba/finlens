@@ -58,21 +58,3 @@ export async function cleanupDocumentVectors(documentId: string, companyId: stri
   }
 }
 
-
-    logger.error(`Failed to cleanup vectors for document ${documentId}`, { error })
-    // Don't throw - cleanup failure shouldn't block document deletion
-  }
-}
-
-
-    logger.error(`Failed to cleanup vectors for document ${documentId}`, { error })
-    // Don't throw - cleanup failure shouldn't block document deletion
-  }
-}
-
-
-    logger.error(`Failed to cleanup vectors for document ${documentId}`, { error })
-    // Don't throw - cleanup failure shouldn't block document deletion
-  }
-}
-

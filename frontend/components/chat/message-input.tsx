@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -34,6 +35,7 @@ interface MessageInputProps {
 }
 
 export function MessageInput({ onSend, onTypingChange, disabled = false, placeholder = 'Type your message...' }: MessageInputProps) {
+  const { theme } = useTheme()
   const [message, setMessage] = useState('')
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [isUploading, setIsUploading] = useState(false)
@@ -203,6 +205,8 @@ export function MessageInput({ onSend, onTypingChange, disabled = false, placeho
             <EmojiPicker
               onEmojiClick={handleEmojiClick}
               autoFocusSearch={false}
+              // @ts-ignore - emoji-picker-react theme prop works but types are strict
+              theme={theme === 'dark' ? 'dark' : 'light'}
             />
           </PopoverContent>
         </Popover>

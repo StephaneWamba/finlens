@@ -17,30 +17,40 @@ import type { Socket } from 'socket.io-client'
 interface UseChatSocketEventsProps {
   socket: Socket | null
   conversationId: string
+  threadId?: string | null
   onTypingChange?: (isTyping: boolean) => void
 }
 
-export function useChatSocketEvents({ socket, conversationId, onTypingChange }: UseChatSocketEventsProps) {
+export function useChatSocketEvents({ socket, conversationId, threadId, onTypingChange }: UseChatSocketEventsProps) {
   const queryClient = useQueryClient()
 
   useEffect(() => {
     if (!socket) return
 
     const handleMessage = (message: Message) => {
-      queryClient.setQueryData<{ messages: Message[]; total: number }>(
-        ['conversations', conversationId, 'messages'],
+      const messageThreadId = message.thread_id || null
+      
+      queryClient.setQueriesData<{ messages: Message[]; total: number }>(
+        {
+          queryKey: ['conversations', conversationId, 'messages', messageThreadId],
+          exact: false,
+        },
         (old) => {
           if (!old) {
             return { messages: [message], total: 1 }
           }
-          const exists = old.messages.some((m) => m._id === message._id)
+          // Remove any temporary messages with the same content (optimistic update replacement)
+          const filteredMessages = old.messages.filter((m) => 
+            !m._id.startsWith('temp-') || m.content !== message.content
+          )
+          const exists = filteredMessages.some((m) => m._id === message._id)
           if (exists) {
             return old
           }
           return {
             ...old,
-            messages: [...old.messages, message],
-            total: old.total + 1,
+            messages: [...filteredMessages, message],
+            total: filteredMessages.length + 1,
           }
         }
       )
@@ -65,5 +75,5 @@ export function useChatSocketEvents({ socket, conversationId, onTypingChange }: 
       socket.off('typing', handleTyping)
       socket.off('error', handleError)
     }
-  }, [socket, conversationId, queryClient, onTypingChange])
+  }, [socket, conversationId, threadId, queryClient, onTypingChange])
 }

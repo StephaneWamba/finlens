@@ -6,7 +6,7 @@ import express from 'express'
 import { Conversation, Message } from '@syntera/shared/models'
 import { createLogger } from '@syntera/shared/logger/index.js'
 import { authenticate, requireCompany, AuthenticatedRequest } from './middleware/auth.js'
-import { getCache, setCache, getMessagesCacheKey, invalidateConversationCache } from '../utils/cache.js'
+import { getCache, setCache, getMessagesCacheKey, invalidateConversationCache, invalidateMessagesCache } from '../utils/cache.js'
 
 const logger = createLogger('chat-service:api')
 const router = express.Router()
@@ -92,6 +92,7 @@ router.get(
 /**
  * GET /api/conversations/:id/messages
  * Get messages for a conversation
+ * Supports filtering by thread_id
  */
 router.get(
   '/:id/messages',
@@ -101,8 +102,9 @@ router.get(
     try {
       const { id } = req.params
       const companyId = req.user!.company_id!
-      const limit = Number(req.query.limit) || 100
+      const limit = Math.min(Number(req.query.limit) || 50, 100) // Cap at 100 for performance
       const offset = Number(req.query.offset) || 0
+      const threadId = req.query.thread_id as string | undefined
 
       // Verify conversation belongs to company
       const conversation = await Conversation.findOne({
@@ -111,11 +113,12 @@ router.get(
       }).select('_id company_id').lean()
 
       if (!conversation) {
+        logger.warn('Conversation not found', { conversationId: id, companyId })
         return res.status(404).json({ error: 'Conversation not found' })
       }
 
       // Try cache first
-      const cacheKey = getMessagesCacheKey(id, limit, offset)
+      const cacheKey = getMessagesCacheKey(id, limit, offset, threadId || null)
       const cached = await getCache<{ messages: unknown[]; total: number }>(cacheKey)
       if (cached) {
         return res.json({
@@ -126,20 +129,46 @@ router.get(
         })
       }
 
-      // Query messages with field selection for better performance
-      const messages = await Message.find({
+      // Build query with thread filtering
+      const query: Record<string, unknown> = {
         conversation_id: id,
-      })
-        .select('_id conversation_id sender_type role content message_type attachments ai_metadata metadata created_at')
-        .sort({ created_at: 1 })
+      }
+
+      // Filter by thread_id
+      if (threadId) {
+        query.thread_id = threadId
+      } else {
+        // If no threadId specified, show only messages without thread_id (main thread)
+        query.thread_id = { $exists: false }
+      }
+
+      // Query messages with field selection for better performance
+      // For pagination: we want to load from newest to oldest (descending)
+      // Then reverse to show oldest first in UI
+      // offset=0 gets newest messages, offset=20 gets next 20 older messages
+      const messages = await Message.find(query)
+        .select('_id conversation_id thread_id sender_type role content message_type attachments ai_metadata metadata created_at')
+        .sort({ created_at: -1 }) // Newest first
         .limit(limit)
         .skip(offset)
         .lean()
+      
+      // Reverse to show chronological order (oldest first) in UI
+      messages.reverse()
 
-      const total = await Message.countDocuments({ conversation_id: id })
+      const total = await Message.countDocuments(query)
 
-      // Cache result
-      await setCache(cacheKey, { messages, total }, 30) // 30 second cache
+      // Log query details for debugging
+      logger.debug('Messages query', { 
+        conversationId: id, 
+        threadId: threadId || 'null', 
+        messageCount: messages.length,
+        total,
+        query: JSON.stringify(query)
+      })
+
+      // Cache result with longer TTL for better performance
+      await setCache(cacheKey, { messages, total }, 120) // 2 minute cache
 
       res.json({
         messages,

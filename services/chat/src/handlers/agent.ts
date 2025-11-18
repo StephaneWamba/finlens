@@ -7,7 +7,7 @@ import { Server } from 'socket.io'
 import { AuthenticatedSocket } from '../middleware/auth.js'
 import { Message, Conversation } from '@syntera/shared/models'
 import { createLogger } from '@syntera/shared/logger/index.js'
-import { invalidateConversationCache } from '../utils/cache.js'
+import { invalidateConversationCache, invalidateMessagesCache } from '../utils/cache.js'
 // Constants for summarization
 const SUMMARY_THRESHOLD = 30 // Summarize when conversation has 30+ messages
 const SUMMARY_INTERVAL = 20 // Update summary every 20 new messages
@@ -89,7 +89,8 @@ export async function generateAgentResponse(
   agentId: string,
   companyId: string,
   userToken: string,
-  attachments?: Array<{ url: string; type: string; name: string; size?: number }>
+  attachments?: Array<{ url: string; type: string; name: string; size?: number }>,
+  threadId?: string
 ) {
   try {
     // Get conversation to check for summary
@@ -221,12 +222,23 @@ export async function generateAgentResponse(
         model: string
         tokensUsed: number
         knowledgeBaseUsed: boolean
+        intent?: {
+          category: string
+          confidence: number
+        }
+        sentiment?: {
+          sentiment: string
+          score: number
+          confidence: number
+          emotions?: string[]
+        }
       }
     }
 
     // Create agent message in database
     const agentMessage = await Message.create({
       conversation_id: conversationId,
+      thread_id: threadId,
       sender_type: 'agent',
       role: 'assistant',
       content: result.response,
@@ -236,21 +248,96 @@ export async function generateAgentResponse(
         tokens_used: result.metadata.tokensUsed,
         response_time_ms: Date.now(),
       },
+      metadata: {
+        ...(result.metadata.intent ? {
+          intent: {
+            category: result.metadata.intent.category,
+            confidence: result.metadata.intent.confidence,
+          },
+        } : {}),
+        ...(result.metadata.sentiment ? {
+          sentiment: {
+            sentiment: result.metadata.sentiment.sentiment,
+            score: result.metadata.sentiment.score,
+            confidence: result.metadata.sentiment.confidence,
+            emotions: result.metadata.sentiment.emotions,
+          },
+        } : {}),
+      },
     })
 
-    // Invalidate cache for this conversation's messages
-    await invalidateConversationCache(conversationId)
+    // Update thread message count if message is in a thread
+    if (threadId) {
+      try {
+        // Reload conversation to get latest threads (in case threads were added/updated)
+        const updatedConversation = await Conversation.findOne({
+          _id: conversationId,
+          company_id: companyId,
+        })
+        if (updatedConversation && updatedConversation.threads) {
+          const thread = updatedConversation.threads.find(t => String(t.id) === String(threadId))
+        if (thread) {
+            const oldCount = thread.message_count || 0
+            thread.message_count = oldCount + 1
+            // Mark threads array as modified for Mongoose to detect changes
+            updatedConversation.markModified('threads')
+            await updatedConversation.save()
+          // Emit updated thread to clients
+          io.to(`conversation:${conversationId}`).emit('thread:updated', {
+            threadId,
+            conversationId,
+            message_count: thread.message_count,
+          })
+            logger.info('Thread message count updated (agent response)', {
+              threadId,
+              conversationId,
+              oldCount,
+              newCount: thread.message_count,
+            })
+          } else {
+            logger.warn('Thread not found when updating message count (agent response)', {
+              threadId,
+              conversationId,
+              companyId,
+              availableThreadIds: updatedConversation.threads.map(t => String(t.id)),
+            })
+          }
+        } else {
+          logger.warn('Conversation or threads not found when updating message count (agent response)', {
+            threadId,
+            conversationId,
+            companyId,
+            hasConversation: !!updatedConversation,
+            hasThreads: !!updatedConversation?.threads,
+          })
+        }
+      } catch (error) {
+        logger.error('Error updating thread message count (agent response)', {
+          error: error instanceof Error ? error.message : String(error),
+          threadId,
+          conversationId,
+          companyId,
+        })
+      }
+    }
 
-    // Emit message to conversation room
+    await invalidateMessagesCache(conversationId, threadId)
+
     io.to(`conversation:${conversationId}`).emit('message', {
-      id: String(agentMessage._id),
-      conversationId,
-      senderType: 'agent',
+      _id: String(agentMessage._id),
+      conversation_id: conversationId,
+      thread_id: threadId,
+      sender_type: 'agent',
       role: 'assistant',
       content: result.response,
-      messageType: 'text',
-      aiMetadata: result.metadata,
-      createdAt: agentMessage.created_at,
+      message_type: 'text',
+      ai_metadata: {
+        model: result.metadata.model,
+        tokens_used: result.metadata.tokensUsed,
+        response_time_ms: Date.now(),
+      },
+      metadata: agentMessage.metadata || {},
+      created_at: agentMessage.created_at.toISOString(),
     })
 
     logger.info('Agent response completed', {
@@ -272,13 +359,13 @@ export async function generateAgentResponse(
     })
 
     io.to(`conversation:${conversationId}`).emit('message', {
-      id: String(errorMessage._id),
-      conversationId,
-      senderType: 'system',
+      _id: String(errorMessage._id),
+      conversation_id: conversationId,
+      sender_type: 'system',
       role: 'system',
       content: errorMessage.content,
-      messageType: 'system',
-      createdAt: errorMessage.created_at,
+      message_type: 'system',
+      created_at: errorMessage.created_at.toISOString(),
     })
 
     throw error

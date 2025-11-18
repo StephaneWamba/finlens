@@ -7,6 +7,7 @@ import mongoose, { Schema, Document } from 'mongoose'
 
 export interface IMessage extends Document {
   conversation_id: string
+  thread_id?: string // Optional thread ID for organizing messages
   sender_type: 'user' | 'agent' | 'system'
   role: 'user' | 'assistant' | 'system' // For OpenAI compatibility
   content: string
@@ -38,6 +39,13 @@ export interface IMessage extends Document {
       confidence: number
       reasoning?: string
     }
+    sentiment?: {
+      sentiment: 'positive' | 'negative' | 'neutral' | 'mixed'
+      score: number // -1.0 to 1.0
+      confidence: number
+      emotions?: string[]
+      reasoning?: string
+    }
     [key: string]: unknown
   }
   created_at: Date
@@ -49,6 +57,11 @@ const MessageSchema = new Schema<IMessage>(
       type: String,
       required: true,
       index: true,
+    },
+    thread_id: {
+      type: String,
+      index: true,
+      sparse: true, // Index only if field exists
     },
     sender_type: {
       type: String,
@@ -99,6 +112,7 @@ const MessageSchema = new Schema<IMessage>(
 MessageSchema.index({ conversation_id: 1, created_at: 1 })
 MessageSchema.index({ conversation_id: 1, sender_type: 1, created_at: -1 })
 MessageSchema.index({ conversation_id: 1, message_type: 1 })
+MessageSchema.index({ conversation_id: 1, thread_id: 1, created_at: 1 })
 
 // Index for AI metadata queries (analytics)
 MessageSchema.index({ 'ai_metadata.model': 1, created_at: -1 })

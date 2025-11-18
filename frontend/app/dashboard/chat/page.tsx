@@ -2,27 +2,33 @@
 
 import { useState, useEffect } from 'react'
 import { useAgents } from '@/lib/api/agents'
-import { useConversations, useChatSocket, type CreateConversationInput } from '@/lib/api/chat'
+import { useConversations, useChatSocket, type CreateConversationInput, type Conversation } from '@/lib/api/chat'
 import { ChatWidget } from '@/components/chat/chat-widget'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { LoadingSkeleton } from '@/components/shared/loading-skeleton'
 import { EmptyState } from '@/components/shared/empty-state'
-import { MessageSquare, Plus, Loader2 } from 'lucide-react'
+import { MessageSquare, Plus, Loader2, ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import { useQueryClient } from '@tanstack/react-query'
 import { cn } from '@/lib/utils'
+import { PAGINATION } from '@/lib/constants/api'
 
 export default function ChatPage() {
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null)
   const [selectedAgentId, setSelectedAgentId] = useState<string>('')
   const [token, setToken] = useState<string | null>(null)
+  const [loadedConversationCount, setLoadedConversationCount] = useState<number>(PAGINATION.CONVERSATIONS_PAGE_SIZE)
   const queryClient = useQueryClient()
   const { data: agents, isLoading: agentsLoading } = useAgents()
-  const { data: conversationsData, isLoading: conversationsLoading } = useConversations({ status: 'active' })
+  const { data: conversationsData, isLoading: conversationsLoading, isFetching: conversationsFetching } = useConversations({ 
+    status: 'active',
+    limit: loadedConversationCount,
+    offset: 0,
+  })
   const { socket } = useChatSocket(token)
 
   // Get auth token
@@ -69,8 +75,13 @@ export default function ChatPage() {
     return <LoadingSkeleton />
   }
 
-  const conversations = conversationsData?.conversations || []
+  const conversations: Conversation[] = (conversationsData && typeof conversationsData === 'object' && 'conversations' in conversationsData) 
+    ? (conversationsData.conversations as Conversation[]) 
+    : []
   const activeConversation = conversations.find(c => c._id === selectedConversationId)
+  const totalConversations = conversationsData && typeof conversationsData === 'object' && conversationsData !== null && 'total' in conversationsData 
+    ? (conversationsData.total as number) 
+    : undefined
 
   return (
     <div className="space-y-8">
@@ -124,8 +135,10 @@ export default function ChatPage() {
           <Card>
             <CardHeader>
               <CardTitle>Active Conversations</CardTitle>
-              {conversations.length > 0 && (
-                <CardDescription>{conversations.length} active</CardDescription>
+              {totalConversations !== undefined && (
+                <CardDescription>
+                  {conversations.length} of {totalConversations} active
+                </CardDescription>
               )}
             </CardHeader>
             <CardContent>
@@ -167,6 +180,27 @@ export default function ChatPage() {
                       </Button>
                     )
                   })}
+                  {totalConversations !== undefined && loadedConversationCount < totalConversations && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-2"
+                      onClick={() => setLoadedConversationCount(prev => prev + PAGINATION.CONVERSATIONS_PAGE_SIZE)}
+                      disabled={conversationsFetching}
+                    >
+                      {conversationsFetching ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Loading...
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="h-4 w-4 mr-2" />
+                          Load more ({totalConversations - loadedConversationCount} remaining)
+                        </>
+                      )}
+                    </Button>
+                  )}
                 </div>
               )}
             </CardContent>
@@ -178,7 +212,7 @@ export default function ChatPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-2"
+          className="lg:col-span-2 col-span-1"
         >
           {selectedConversationId && activeConversation ? (
             <ChatWidget
@@ -186,17 +220,30 @@ export default function ChatPage() {
               agentId={activeConversation.agent_id}
             />
           ) : (
-            <Card className="h-[600px] flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground" />
-                <div>
-                  <h3 className="text-lg font-semibold">No conversation selected</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Select an agent and start a new chat, or choose an existing conversation
-                  </p>
-                </div>
+            <div className="flex flex-col lg:flex-row gap-4 h-[600px]">
+              {/* Empty Threads Sidebar (visible on large screens) */}
+              <div className="hidden lg:flex w-64 shrink-0">
+                <Card className="w-full flex items-center justify-center">
+                  <div className="text-center text-muted-foreground text-sm p-4">
+                    <MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    <p>Select a conversation to view threads</p>
+                  </div>
+                </Card>
               </div>
-            </Card>
+              
+              {/* Empty Chat Area */}
+              <Card className="flex-1 flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground" />
+                  <div>
+                    <h3 className="text-lg font-semibold">No conversation selected</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Select an agent and start a new chat, or choose an existing conversation
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
           )}
         </motion.div>
       </div>

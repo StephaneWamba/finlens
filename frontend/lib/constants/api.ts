@@ -22,7 +22,9 @@ export const SERVICE_URLS = {
 // Pagination & Limits
 export const PAGINATION = {
   DEFAULT_LIMIT: 20,
-  MESSAGES_LIMIT: 100,
+  MESSAGES_LIMIT: 50, // Reduced from 100 for better initial load performance
+  MESSAGES_PAGE_SIZE: 20, // Messages to load per page
+  CONVERSATIONS_PAGE_SIZE: 20, // Conversations to load per page
   DOCUMENTS_LIMIT: 50,
   AGENTS_LIMIT: 50,
   MAX_LIMIT: 1000,

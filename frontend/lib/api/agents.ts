@@ -119,11 +119,19 @@ export function useAgents() {
   })
 }
 
+// UUID validation regex
+const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+function isValidUUID(id: string): boolean {
+  return uuidRegex.test(id)
+}
+
 export function useAgent(id: string) {
   return useQuery({
     queryKey: ['agents', id],
     queryFn: () => fetchAgent(id),
-    enabled: !!id,
+    enabled: !!id && isValidUUID(id),
+    retry: false, // Don't retry invalid UUIDs
   })
 }
 
