@@ -33,3 +33,4 @@ Write-Host ""
 
 cloudflared tunnel --config cloudflare-tunnel.yml run syntera-agent-service
 
+
