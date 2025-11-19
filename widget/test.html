@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syntera Widget Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #333;
+    }
+    .info {
+      background: #f3f4f6;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    code {
+      background: #e5e5e5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Syntera Widget Test Page</h1>
+  
+  <div class="info">
+    <h2>Widget Configuration</h2>
+    <p>This page tests the Syntera embeddable widget.</p>
+    <p>Make sure to update the script tag below with your actual:</p>
+    <ul>
+      <li><code>data-agent-id</code> - Your agent ID</li>
+      <li><code>data-api-key</code> - Your API key</li>
+      <li><code>data-api-url</code> - Your API URL (default: https://api.syntera.com)</li>
+    </ul>
+  </div>
+
+  <h2>Test Content</h2>
+  <p>This is a test page to verify the widget loads and works correctly.</p>
+  <p>The widget should appear as a floating button in the bottom-right corner.</p>
+  <p>Click the button to open the chat interface.</p>
+
+  <!-- Syntera Widget -->
+  <!-- Update these values with your actual credentials -->
+  <script src="./dist/widget.iife.js"
+          data-agent-id="19bcabc6-1f45-4769-9cf2-7b2b69441c36"
+          data-api-key="pub_key_test123"
+          data-api-url="http://localhost:4002"
+          data-position="bottom-right"
+          data-theme="light"></script>
+
+  <script>
+    // Test programmatic API
+    window.addEventListener('load', () => {
+      console.log('Syntera Widget loaded:', window.synteraWidget)
+      
+      // Example: Open widget after 2 seconds
+      // setTimeout(() => {
+      //   if (window.synteraWidget) {
+      //     window.synteraWidget.open()
+      //   }
+      // }, 2000)
+    })
+  </script>
+</body>
+</html>
+

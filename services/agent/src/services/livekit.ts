@@ -12,6 +12,7 @@ export interface ParticipantPermissions {
   canPublish: boolean
   canSubscribe: boolean
   canPublishData: boolean
+  roomRecord?: boolean
 }
 
 export interface TokenOptions {
@@ -76,6 +77,7 @@ export async function generateAccessToken(options: TokenOptions): Promise<string
       canPublish: permissions.canPublish,
       canSubscribe: permissions.canSubscribe,
       canPublishData: permissions.canPublishData,
+      roomRecord: permissions.roomRecord || false,
     })
 
     if (metadata) {

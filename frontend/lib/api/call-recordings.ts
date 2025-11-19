@@ -221,12 +221,15 @@ export function useRecordings(conversationId?: string) {
   })
 }
 
-export function useRecording(id: string) {
+export function useRecording(
+  id: string,
+  options?: { enabled?: boolean }
+) {
   return useQuery({
     queryKey: ['call-recording', id],
     queryFn: () => getRecording(id),
     select: (data) => data.recording,
-    enabled: !!id,
+    enabled: options?.enabled !== false && !!id,
   })
 }
 

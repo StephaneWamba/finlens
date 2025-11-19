@@ -32,8 +32,7 @@ export function VoiceCallWidget({ conversationId, agentId }: VoiceCallWidgetProp
   const audioRef = useRef<HTMLAudioElement>(null)
   const recordingIdRef = useRef<string | null>(null)
   const callStartTimeRef = useRef<Date | null>(null)
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  const audioChunksRef = useRef<Blob[]>([])
+  const egressIdRef = useRef<string | null>(null)
 
   const connectToRoom = useCallback(async () => {
     if (isConnecting || isConnected) return
@@ -83,7 +82,7 @@ export function VoiceCallWidget({ conversationId, agentId }: VoiceCallWidgetProp
         setIsMuted(true)
       }
 
-      // Start recording
+      // Start server-side recording via LiveKit Egress
       try {
         const recordingData = await createRecording.mutateAsync({
           conversationId,
@@ -94,32 +93,33 @@ export function VoiceCallWidget({ conversationId, agentId }: VoiceCallWidgetProp
         })
         recordingIdRef.current = recordingData.recording.id
 
-        // Start browser-side recording
-        // Note: This records the user's microphone only. For full call recording (both sides),
-        // you would need to use LiveKit's server-side recording or mix audio tracks.
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-        const mediaRecorder = new MediaRecorder(stream, {
-          mimeType: 'audio/webm;codecs=opus',
-        })
-        mediaRecorderRef.current = mediaRecorder
-        audioChunksRef.current = []
+        // Start LiveKit Egress recording (server-side, captures both sides of call)
+        try {
+          const egressResponse = await fetch('/api/call-recordings/start-egress', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              recordingId: recordingData.recording.id,
+              roomName: tokenData.roomName,
+            }),
+          })
 
-        mediaRecorder.ondataavailable = (event) => {
-          if (event.data && event.data.size > 0) {
-            console.log('Recording chunk received:', event.data.size, 'bytes')
-            audioChunksRef.current.push(event.data)
+          if (egressResponse.ok) {
+            const egressData = await egressResponse.json()
+            egressIdRef.current = egressData.egressId
+            console.log('LiveKit Egress recording started:', egressData.egressId)
+          } else {
+            console.error('Failed to start Egress recording:', await egressResponse.text())
+            // Don't block the call if recording fails
           }
+        } catch (egressError) {
+          console.error('Failed to start Egress recording:', egressError)
+          // Don't block the call if recording fails
         }
-
-        mediaRecorder.onerror = (event) => {
-          console.error('MediaRecorder error:', event)
-        }
-
-        // Start recording with timeslice to ensure chunks are emitted regularly
-        mediaRecorder.start(1000) // Emit chunk every 1 second
-        console.log('Recording started, MediaRecorder state:', mediaRecorder.state)
       } catch (error) {
-        console.error('Failed to start recording:', error)
+        console.error('Failed to create recording entry:', error)
         // Don't block the call if recording fails
       }
 
@@ -155,91 +155,47 @@ export function VoiceCallWidget({ conversationId, agentId }: VoiceCallWidgetProp
         ? Math.floor((new Date().getTime() - callStartTimeRef.current.getTime()) / 1000)
         : 0
 
-      // Stop recording and wait for final data
-      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-        await new Promise<void>((resolve) => {
-          const mediaRecorder = mediaRecorderRef.current!
-          
-          // Request final data chunk before stopping
-          mediaRecorder.requestData()
-          
-          // Wait for stop event to ensure all data is collected
-          mediaRecorder.onstop = async () => {
-            console.log('Recording stopped, chunks:', audioChunksRef.current.length, 'total size:', audioChunksRef.current.reduce((sum, chunk) => sum + chunk.size, 0))
-            
-            // Stop all tracks
-            mediaRecorder.stream.getTracks().forEach(track => track.stop())
-            
-            // Update recording if it exists
-            if (recordingIdRef.current) {
-              try {
-                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm;codecs=opus' })
-                console.log('Created audio blob, size:', audioBlob.size, 'bytes')
-                
-                if (audioBlob.size === 0) {
-                  console.warn('Audio blob is empty! Chunks:', audioChunksRef.current.length)
-                  toast.error('Recording failed: No audio data captured')
-                } else {
-                  // Upload recording to storage
-                  let recordingUrl: string | undefined
-                  let recordingPath: string | undefined
-                  
-                  try {
-                    const formData = new FormData()
-                    formData.append('file', audioBlob, `recording-${recordingIdRef.current}.webm`)
-                    formData.append('recordingId', recordingIdRef.current)
+      // Stop Egress recording if active
+      if (egressIdRef.current) {
+        try {
+          await fetch('/api/call-recordings/stop-egress', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              egressId: egressIdRef.current,
+              recordingId: recordingIdRef.current,
+            }),
+          })
+          console.log('Egress recording stop requested')
+        } catch (error) {
+          console.error('Failed to stop Egress recording:', error)
+        }
+      }
 
-                    console.log('Uploading recording, size:', audioBlob.size, 'bytes')
-                    const uploadResponse = await fetch('/api/call-recordings/upload', {
-                      method: 'POST',
-                      body: formData,
-                    })
-
-                    if (uploadResponse.ok) {
-                      const uploadData = await uploadResponse.json()
-                      recordingUrl = uploadData.url
-                      recordingPath = uploadData.path
-                      console.log('Recording uploaded successfully:', recordingPath)
-                    } else {
-                      const errorData = await uploadResponse.json()
-                      console.error('Upload failed:', errorData)
-                      toast.error('Failed to upload recording')
-                    }
-                  } catch (uploadError) {
-                    console.error('Failed to upload recording:', uploadError)
-                    toast.error('Failed to upload recording')
-                  }
-
-                  await updateRecording.mutateAsync({
-                    id: recordingIdRef.current,
-                    data: {
-                      endedAt: new Date().toISOString(),
-                      durationSeconds: duration,
-                      participants: participants,
-                      recordingUrl,
-                      recordingStoragePath: recordingPath,
-                      fileSizeBytes: audioBlob.size,
-                      status: 'completed',
-                    },
-                  })
-                }
-              } catch (error) {
-                console.error('Failed to update recording:', error)
-              }
-            }
-            
-            resolve()
-          }
-          
-          // Stop the recorder
-          mediaRecorder.stop()
-        })
+      // Update recording with end time and duration
+      if (recordingIdRef.current) {
+        try {
+          await updateRecording.mutateAsync({
+            id: recordingIdRef.current,
+            data: {
+              endedAt: new Date().toISOString(),
+              durationSeconds: duration,
+              participants: participants,
+              status: 'processing', // Will be updated to 'completed' when file is ready
+            },
+          })
+        } catch (error) {
+          console.error('Failed to update recording:', error)
+        }
       }
 
       await client.disconnect()
       setIsConnected(false)
       setParticipants([])
       recordingIdRef.current = null
+      egressIdRef.current = null
       callStartTimeRef.current = null
       toast.info('Disconnected from voice call')
     } catch (error) {

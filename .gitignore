@@ -45,6 +45,10 @@ __pycache__/
 venv/
 .venv/
 
+# Cloudflare Tunnel
+.cloudflare/
+cloudflare-tunnel.yml
+
 # Terraform
 terraform/.terraform/
 terraform/.terraform.lock.hcl

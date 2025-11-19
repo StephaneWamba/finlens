@@ -19,13 +19,30 @@ import { handleSendMessage, handleTyping } from './handlers/messages.js'
 import { handleCreateConversation, handleJoinConversation, handleLeaveConversation } from './handlers/conversations.js'
 import { handleCreateThread, handleSwitchThread } from './handlers/threads.js'
 import conversationsRouter from './routes/conversations.js'
+import internalRouter from './routes/internal.js'
 
 const logger = createLogger('chat-service')
 const app = express()
 const httpServer = createServer(app)
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, Postman, or file:// protocol)
+      if (!origin) {
+        return callback(null, true)
+      }
+      const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+        'http://localhost:3000',
+        'http://localhost:8000',
+        'http://localhost:8080',
+        'null', // For file:// protocol
+      ]
+      if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+        callback(null, true)
+      } else {
+        callback(null, true) // Allow all for development - restrict in production
+      }
+    },
     credentials: true,
   },
 })
@@ -62,8 +79,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'chat-service', timestamp: new Date().toISOString() })
 })
 
+// Make Socket.io instance available to routes
+app.set('io', io)
+
 // REST API routes
 app.use('/api/conversations', conversationsRouter)
+app.use('/api/internal', internalRouter)
 
 // Socket.io authentication middleware
 io.use(authenticateSocket)

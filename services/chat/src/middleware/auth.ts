@@ -23,7 +23,7 @@ export interface AuthenticatedSocket extends Socket {
 
 /**
  * Socket.io authentication middleware
- * Verifies JWT token and attaches user info to socket
+ * Verifies JWT token (Supabase) or widget token (API key-based) and attaches user info to socket
  */
 export async function authenticateSocket(
   socket: AuthenticatedSocket,
@@ -37,7 +37,40 @@ export async function authenticateSocket(
       return next(new Error('Authentication required'))
     }
 
-    // Verify token with Supabase
+    // Check if this is a widget token (base64 encoded JSON with conversationId, agentId, companyId, apiKey)
+    // Widget tokens start with base64 JSON, Supabase JWT tokens are different format
+    try {
+      const decoded = Buffer.from(token, 'base64').toString('utf-8')
+      const widgetToken = JSON.parse(decoded)
+      
+      // If it has conversationId, agentId, companyId, it's a widget token
+      if (widgetToken.conversationId && widgetToken.companyId) {
+        logger.info('Widget token detected', { 
+          socketId: socket.id,
+          conversationId: widgetToken.conversationId,
+          companyId: widgetToken.companyId 
+        })
+        
+        // For widget connections, we don't have a userId (anonymous user)
+        // Set companyId and conversationId from token
+        socket.userId = `widget:${widgetToken.conversationId}` // Anonymous widget user ID
+        socket.companyId = widgetToken.companyId
+        socket.token = token
+        
+        logger.info('Widget socket authenticated', { 
+          socketId: socket.id, 
+          userId: socket.userId,
+          companyId: socket.companyId,
+          conversationId: widgetToken.conversationId
+        })
+        
+        return next()
+      }
+    } catch {
+      // Not a widget token, continue with Supabase JWT verification
+    }
+
+    // Verify token with Supabase (for authenticated users)
     const { data: { user }, error: authError } = await supabase.auth.getUser(token)
 
     if (authError || !user) {

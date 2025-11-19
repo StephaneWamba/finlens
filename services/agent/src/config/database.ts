@@ -4,6 +4,7 @@
 
 import { createClient } from '@supabase/supabase-js'
 import { createRedisClient } from '@syntera/shared/database/redis.js'
+import { connectMongoDB } from '@syntera/shared/database/mongodb.js'
 import { createLogger } from '@syntera/shared/logger/index.js'
 
 type Redis = Awaited<ReturnType<typeof createRedisClient>>
@@ -73,6 +74,35 @@ export async function initializeDatabase() {
       throw supabaseError
     }
     logger.info('✅ Supabase connected')
+
+    // Connect to MongoDB (required for conversation storage)
+    // Default to Docker MongoDB if MONGODB_URI is not set
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/syntera'
+    
+    if (!process.env.MONGODB_URI) {
+      logger.info('ℹ️  MONGODB_URI not set, using default Docker MongoDB: mongodb://localhost:27017/syntera')
+    }
+    
+    try {
+      await connectMongoDB(mongoUri)
+      logger.info('✅ MongoDB connected')
+    } catch (error: any) {
+      // Check if it's a network/timeout error (likely VPC/private network issue)
+      if (error?.message?.includes('ETIMEDOUT') || 
+          error?.message?.includes('ECONNREFUSED') ||
+          error?.message?.includes('ENOTFOUND')) {
+        logger.warn('⚠️  MongoDB connection failed - likely not accessible from local machine')
+        logger.warn('   AWS DocumentDB is in a private VPC and requires VPN/bastion host')
+        logger.warn('   For local development, use:')
+        logger.warn('   1. Local MongoDB: mongodb://localhost:27017/syntera')
+        logger.warn('   2. MongoDB Atlas (cloud): mongodb+srv://...')
+        logger.warn('   3. Docker: docker run -d -p 27017:27017 mongo')
+        logger.warn('   Service will continue without MongoDB (conversation creation will fail)')
+      } else {
+        // Re-throw other errors
+        throw error
+      }
+    }
 
     // Redis connection status (check with delay to allow connection to establish)
     setTimeout(() => {
