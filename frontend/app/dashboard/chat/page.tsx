@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useAgents } from '@/lib/api/agents'
 import { useConversations, useChatSocket, type CreateConversationInput, type Conversation } from '@/lib/api/chat'
 import { ChatWidget } from '@/components/chat/chat-widget'
+import { VoiceCallWidget } from '@/components/voice-call/voice-call-widget'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -43,7 +44,7 @@ export default function ChatPage() {
     getToken()
   }, [])
 
-  const handleCreateConversation = async () => {
+  const handleCreateConversation = async (channel: 'chat' | 'voice' | 'video' = 'chat') => {
     if (!selectedAgentId) {
       toast.error('Please select an agent')
       return
@@ -56,7 +57,7 @@ export default function ChatPage() {
 
     const conversationData: CreateConversationInput = {
       agentId: selectedAgentId,
-      channel: 'chat',
+      channel,
     }
 
     socket.emit('conversation:create', conversationData)
@@ -125,10 +126,20 @@ export default function ChatPage() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button onClick={handleCreateConversation} className="w-full" disabled={!selectedAgentId || !socket}>
-                <Plus className="mr-2 h-4 w-4" />
-                Start Chat
-              </Button>
+              <div className="space-y-2">
+                <Button onClick={() => handleCreateConversation('chat')} className="w-full" disabled={!selectedAgentId || !socket}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Start Chat
+                </Button>
+                <Button onClick={() => handleCreateConversation('voice')} variant="outline" className="w-full" disabled={!selectedAgentId || !socket}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Start Voice Call
+                </Button>
+                <Button onClick={() => handleCreateConversation('video')} variant="outline" className="w-full" disabled={!selectedAgentId || !socket}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Start Video Call
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
@@ -149,7 +160,7 @@ export default function ChatPage() {
                   description="Start a new chat to begin"
                 />
               ) : (
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 max-h-[500px] overflow-y-auto pr-1 custom-scrollbar">
                   {conversations.map((conversation) => {
                     const agent = agents?.find(a => a.id === conversation.agent_id)
                     const isSelected = selectedConversationId === conversation._id
@@ -215,10 +226,17 @@ export default function ChatPage() {
           className="lg:col-span-2 col-span-1"
         >
           {selectedConversationId && activeConversation ? (
-            <ChatWidget
-              conversationId={selectedConversationId}
-              agentId={activeConversation.agent_id}
-            />
+            activeConversation.channel === 'voice' || activeConversation.channel === 'video' ? (
+              <VoiceCallWidget
+                conversationId={selectedConversationId}
+                agentId={activeConversation.agent_id}
+              />
+            ) : (
+              <ChatWidget
+                conversationId={selectedConversationId}
+                agentId={activeConversation.agent_id}
+              />
+            )
           ) : (
             <div className="flex flex-col lg:flex-row gap-4 h-[600px]">
               {/* Empty Threads Sidebar (visible on large screens) */}

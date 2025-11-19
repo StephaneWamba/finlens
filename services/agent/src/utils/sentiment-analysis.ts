@@ -201,3 +201,4 @@ export function shouldEscalate(sentiment: SentimentAnalysisResult): boolean {
   return sentiment.sentiment === 'negative' && sentiment.score < -0.6 && sentiment.confidence > 0.7
 }
 
+

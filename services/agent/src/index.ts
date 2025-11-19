@@ -18,6 +18,9 @@ import responsesRouter from './routes/responses.js'
 import summarizeRouter from './routes/summarize.js'
 import intentRouter from './routes/intent.js'
 import sentimentRouter from './routes/sentiment.js'
+import livekitRouter from './routes/livekit.js'
+import voiceBotRouter from './routes/voice-bot.js'
+import callRecordingsRouter from './routes/call-recordings.js'
 
 const logger = createLogger('agent-service')
 const app = express()
@@ -50,6 +53,9 @@ app.use('/api/responses', responsesRouter)
 app.use('/api/responses', summarizeRouter) // Summarize endpoint
 app.use('/api/responses', intentRouter) // Intent detection endpoint
 app.use('/api/responses', sentimentRouter) // Sentiment analysis endpoint
+app.use('/api/livekit', livekitRouter)
+app.use('/api/voice-bot', voiceBotRouter)
+app.use('/api/call-recordings', callRecordingsRouter)
 
 // Error handling
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

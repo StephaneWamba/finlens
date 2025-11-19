@@ -12,6 +12,7 @@ import {
   Users,
   Workflow,
   BookOpen,
+  Phone,
 } from "lucide-react"
 import {
   Sidebar,
@@ -64,6 +65,11 @@ const navigation = [
     name: "Knowledge Base",
     href: "/dashboard/knowledge-base",
     icon: BookOpen,
+  },
+  {
+    name: "Calls",
+    href: "/dashboard/calls",
+    icon: Phone,
   },
 ]
 

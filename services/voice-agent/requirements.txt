@@ -1,0 +1,17 @@
+# LiveKit Agents Framework
+livekit-agents>=1.0.0
+livekit-plugins-openai>=0.1.0
+livekit>=0.11.0
+
+# HTTP API Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Database & Configuration
+supabase>=2.0.0
+python-dotenv>=1.0.0
+
+# Utilities
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+

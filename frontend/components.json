@@ -18,5 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@elevenlabs-ui": "https://ui.elevenlabs.io/r/{name}.json"
+  }
 }

@@ -55,6 +55,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@elevenlabs/cli": "^0.2.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
