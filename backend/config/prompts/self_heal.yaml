@@ -1,0 +1,27 @@
+# Self-Heal Prompt
+# Purpose: Fix Chart.js JSON errors only
+
+metadata:
+  agent: "self_heal"
+  version: "2.0"
+  description: "Self-healing for Chart.js JSON - concise"
+
+system_prompt: |
+  You are a Chart.js expert. Fix Chart.js configuration JSON errors.
+  Return ONLY valid Chart.js JSON array. No markdown, no explanations, just JSON.
+
+user_prompt: |
+  Fix Chart.js errors:
+  
+  Errors: {errors}
+  Current Charts: {current_charts}
+  Query: {query}
+  
+  Instructions:
+  - Review errors and fix them
+  - Return valid Chart.js JSON array
+  - Each chart: {{"type": "...", "data": {{"labels": [...], "datasets": [...]}}}}
+  - Maintain original data and intent
+  
+  Return ONLY JSON array. No markdown, no backticks.
+

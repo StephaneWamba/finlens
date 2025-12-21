@@ -1,0 +1,604 @@
+[
+    {
+        "type": "text",
+        "text": "UNITED STATESSECURITIES AND EXCHANGE COMMISSIONWASHINGTON, DC 20549",
+        "text_level": 1,
+        "bbox": [
+            176,
+            51,
+            823,
+            117
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "FORM 8-K ",
+        "text_level": 1,
+        "bbox": [
+            425,
+            155,
+            576,
+            178
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "CURRENT REPORT PURSUANT TO SECTION 13 OR 15(D) OF THE SECURITIES EXCHANGE ACT OF 1934 ",
+        "text_level": 1,
+        "bbox": [
+            272,
+            217,
+            726,
+            266
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Date of report (Date of earliest event reported) November 29, 2017 ",
+        "bbox": [
+            181,
+            279,
+            818,
+            296
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Microsoft Corporation ",
+        "text_level": 1,
+        "bbox": [
+            285,
+            336,
+            712,
+            365
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(Exact Name of Registrant as Specified in Its Charter) ",
+        "bbox": [
+            284,
+            368,
+            714,
+            382
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Washington (State or Other Jurisdiction of Incorporation) ",
+        "bbox": [
+            411,
+            419,
+            588,
+            456
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "One Microsoft Way, Redmond, Washington (Address of Principal Executive Offices) ",
+        "text_level": 1,
+        "bbox": [
+            107,
+            521,
+            455,
+            547
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(425) 882-8080 (Registrant’s Telephone Number, Including Area Code) ",
+        "bbox": [
+            322,
+            559,
+            675,
+            585
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(Former Name or Former Address, if Changed Since Last Report) ",
+        "bbox": [
+            289,
+            598,
+            709,
+            610
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions (see General Instruction A.2. below): ",
+        "bbox": [
+            57,
+            646,
+            924,
+            675
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425)   \n☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12)   \n☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b))   \n☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c)) ",
+        "bbox": [
+            89,
+            680,
+            857,
+            789
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter). Emerging growth company ☐ ",
+        "bbox": [
+            57,
+            802,
+            936,
+            844
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐ ",
+        "bbox": [
+            55,
+            857,
+            934,
+            899
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "8-K 1 d485065d8k.htm FORM 8-K",
+        "bbox": [
+            53,
+            23,
+            344,
+            38
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "91-1144442 (IRS Employer Identification No.) ",
+        "bbox": [
+            668,
+            470,
+            786,
+            505
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "001-37845 (Commission File Number) ",
+        "bbox": [
+            235,
+            470,
+            324,
+            505
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "98052-6399 (Zip Code) ",
+        "bbox": [
+            680,
+            521,
+            776,
+            547
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Item 5.02(e). Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers; Compensatory Arrangements of Certain Officers ",
+        "text_level": 1,
+        "bbox": [
+            62,
+            39,
+            939,
+            66
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "On November 29, 2017, Microsoft Corporation (the “Company”) held its 2017 Annual Shareholders Meeting (the “Annual Meeting”). ",
+        "bbox": [
+            58,
+            72,
+            897,
+            100
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "At the Annual Meeting, the Company’s shareholders approved the Company’s 2017 Stock Plan (the “2017 Stock Plan”). The 2017 Stock Plan replaces (a) the Company’s 2001 Stock Plan, as amended through July 26, 2016, for all awards other than stock awards to the Company’s French employees qualified under the Macron tax regime, and (b) the Company’s 1999 Stock Plan for Non-Employee Directors, as amended through November 19, 2008, in its entirety. The material terms of the Plan are described in “Proposal 6 – Approve the Microsoft Corporation 2017 Stock Plan” in the Company’s definitive proxy statement on Schedule 14A filed with the Securities and Exchange Commission on October 16, 2017, which is incorporated by reference herein. ",
+        "bbox": [
+            55,
+            114,
+            941,
+            209
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Item 5.07. Submission of Matters to a Vote of Security Holders ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            229,
+            552,
+            243
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "There were 7,715,432,925 shares of common stock entitled to be voted at the Annual Meeting, of which 6,827,522,487 were voted in person or by proxy. The results for each item submitted for a vote of shareholders are as follows. The shareholders: ",
+        "bbox": [
+            55,
+            249,
+            941,
+            289
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(1) Voted to elect each of the fourteen (14) nominees for director. ",
+        "bbox": [
+            90,
+            296,
+            579,
+            311
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(2) Approved, on an advisory basis, the compensation of the Company’s named executive officers. ",
+        "bbox": [
+            90,
+            317,
+            830,
+            332
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(3) Approved, on an advisory basis, a frequency of every year for the Company’s advisory vote to approve the compensation of the Company’s named executive officers. Consistent with the recommendation of the Directors and the majority of votes cast, the Company has determined that future advisory votes to approve the compensation of the Company’s named executive officers will take place every year until the next advisory vote on the frequency of such votes, which will occur no later than the Company’s Annual Shareholders Meeting in 2023. ",
+        "bbox": [
+            89,
+            337,
+            939,
+            406
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(4) Voted to ratify the appointment of Deloitte & Touche LLP as the Company’s independent registered public accounting firm for fiscal year 2018. ",
+        "bbox": [
+            85,
+            412,
+            907,
+            439
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(5) Approved the material terms of the performance goals under the Microsoft Corporation Executive Incentive Plan. ",
+        "bbox": [
+            80,
+            445,
+            907,
+            473
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(6) Approved the Microsoft Corporation 2017 Stock Plan. ",
+        "bbox": [
+            89,
+            478,
+            514,
+            494
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "The Company’s inspector of election certified the following vote tabulations: ",
+        "bbox": [
+            57,
+            507,
+            616,
+            521
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Election of directors ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            541,
+            220,
+            557
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "table",
+        "img_path": "images/e9026baeac7dafde9f213f3c68f9e90a5b7d90c7e04725aafa938c1aee60cc17.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td colspan=\"7\">%</td></tr><tr><td>Director</td><td>Vote Results</td><td>Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Broker Non-Votes</td></tr><tr><td>William H. Gates III</td><td>Re-elected</td><td></td><td>99.7% 5,538,446,714</td><td>14,411,530</td><td>3,566,412</td><td>1,271,097,831</td></tr><tr><td>Reid G. Hoffman</td><td>Elected</td><td>99.9%</td><td>5,545,625,110</td><td>5,649,325</td><td>5,150,221</td><td>1,271,097,831</td></tr><tr><td>Hugh F. Johnston</td><td>Elected</td><td>99.9%</td><td>5,544,376,587</td><td>6,306,403</td><td>5,741,666</td><td>1,271,097,831</td></tr><tr><td>Teri L. List-Stoll</td><td>Re-elected</td><td>99.9%</td><td>5,543,855,279</td><td>7,214,127</td><td>5,355,250</td><td>1,271,097,831</td></tr><tr><td>Satya Nadella</td><td>Re-elected</td><td>99.9%</td><td>5,546,674,443</td><td>5,574,168</td><td>4,176,045</td><td>1,271,097,831</td></tr><tr><td>Charles H. Noski</td><td>Re-elected</td><td>98.4%</td><td>5,461,913,585</td><td>88,702,547</td><td>5,808,524</td><td>1,271,097,831</td></tr><tr><td>Helmut Panke, Ph.D.</td><td>Re-elected</td><td>98.8%</td><td>5,484,461,297</td><td>66,110,041</td><td>5,853,318</td><td>1,271,097,831</td></tr><tr><td>Sandra E. Peterson</td><td>Re-elected</td><td>99.8%</td><td>5,542,595,853</td><td>9,082,023</td><td>4,746,780</td><td>1,271,097,831</td></tr><tr><td>Penny S. Pritzker</td><td>Elected</td><td>99.7%</td><td>5,535,727,609 15,390,058</td><td></td><td></td><td>5,306,989 1,271,097,831</td></tr><tr><td>Charles W. Scharf</td><td>Re-elected</td><td></td><td>99.8% 5,538,918,808</td><td>11,719,586</td><td>5,786,262</td><td>1,271,097,831</td></tr><tr><td>Arne M. Sorenson</td><td>Elected</td><td>99.9%</td><td>5,543,007,070</td><td>7,571,734</td><td>5,845,852</td><td>1,271,097,831</td></tr><tr><td>John W. Stanton</td><td>Re-elected</td><td>99.7%</td><td>5,531,822,045</td><td>18,948,615</td><td>5,653,996</td><td> 1,271,097,831</td></tr><tr><td>John W. Thompson</td><td>Re-elected</td><td>99.9%</td><td>5,544,587,391</td><td>6,722,212</td><td>5,115,053</td><td>1,271,097,831</td></tr><tr><td>Padmasree Warrior</td><td></td><td></td><td>Re-elected 99.8% 5,541,503,554</td><td></td><td></td><td>9,204,860 5,716,242 1,271,097,831</td></tr></table>",
+        "bbox": [
+            53,
+            571,
+            944,
+            726
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "table",
+        "img_path": "",
+        "table_caption": [],
+        "table_footnote": [],
+        "bbox": [
+            53,
+            39,
+            946,
+            141
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Advisory vote on executive compensation ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            161,
+            393,
+            175
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Vote result Approved ",
+        "bbox": [
+            53,
+            200,
+            129,
+            226
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "% Votes For For Against Abstain Non-Votes 95.5% 5,266,197,636 245,545,411 44,681,609 1,271,097,831 ",
+        "bbox": [
+            317,
+            199,
+            942,
+            226
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Advisory vote on the frequency of future advisory votes on executive compensation ",
+        "text_level": 1,
+        "bbox": [
+            52,
+            247,
+            729,
+            262
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Broker 1 year 2 years 3 years Abstain Non-Votes 5,031,673,874 12,594,377 497,806,452 14,349,953 1,271,097,831 90.8% 0.2% 9.0% ",
+        "bbox": [
+            314,
+            285,
+            941,
+            331
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Ratification of appointment of independent auditor ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            352,
+            462,
+            366
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Vote result Approved ",
+        "bbox": [
+            53,
+            410,
+            129,
+            437
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Approval of the material terms of the performance goals under the Microsoft Corporation Executive Incentive Plan ",
+        "text_level": 1,
+        "bbox": [
+            52,
+            457,
+            934,
+            486
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Approval of the Microsoft Corporation 2017 Stock Plan ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            561,
+            495,
+            577
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "Broker % Votes For For Against Abstain Non-Votes 96.8% 5,361,034,589 175,503,721 19,886,346 1,271,097,831 ",
+        "bbox": [
+            319,
+            612,
+            942,
+            647
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "% Votes For For Against Abstain Non-Votes 98.8% 5,479,803,388 64,994,411 11,626,857 1,271,097,831 ",
+        "bbox": [
+            315,
+            514,
+            942,
+            541
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "% Votes For For Against Abstain Non-Votes 98.2% 6,695,326,148 122,401,921 9,794,418 0 ",
+        "bbox": [
+            315,
+            409,
+            937,
+            437
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "Vote result Approved ",
+        "bbox": [
+            53,
+            516,
+            129,
+            541
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "Vote result Approved ",
+        "bbox": [
+            53,
+            622,
+            129,
+            647
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "discarded",
+        "text": "Vote result 1 year ",
+        "bbox": [
+            53,
+            292,
+            126,
+            318
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "SIGNATURE ",
+        "text_level": 1,
+        "bbox": [
+            448,
+            39,
+            549,
+            53
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. ",
+        "bbox": [
+            53,
+            66,
+            926,
+            95
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "/s/ John A. Seethoff John A. Seethoff Corporate Secretary ",
+        "bbox": [
+            552,
+            152,
+            707,
+            195
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "discarded",
+        "text": "MICROSOFT CORPORATION (Registrant) ",
+        "bbox": [
+            509,
+            109,
+            741,
+            137
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "discarded",
+        "text": "Date: November 30, 2017 ",
+        "bbox": [
+            55,
+            152,
+            250,
+            166
+        ],
+        "page_idx": 3
+    }
+]

@@ -1,0 +1,38 @@
+# Core dependencies
+pydantic
+pydantic-settings
+openai
+qdrant-client
+voyageai
+
+# Backend services
+supabase
+fastapi
+uvicorn
+stripe
+slowapi
+python-multipart
+httpx
+
+# LLM & AI
+langgraph
+langchain
+langchain-openai
+langchain-anthropic
+tiktoken
+instructor
+
+# Utilities
+tqdm
+python-dotenv
+PyYAML
+email-validator
+
+# Optional: For advanced reranking with cross-encoder
+# Uncomment to enable cross-encoder reranking (better accuracy)
+# sentence-transformers
+
+# Development
+pytest
+black
+

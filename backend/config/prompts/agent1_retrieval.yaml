@@ -1,0 +1,45 @@
+# Agent 1: Query & Retrieval Agent
+# Purpose: Process queries and retrieve relevant content
+
+metadata:
+  agent: "agent1_retrieval"
+  version: "2.0"
+  description: "Query processing and retrieval agent - concise"
+
+system_prompt: |
+  You are a financial reports retrieval specialist. Process queries and extract entities (companies, years, metrics).
+  Generate search-friendly keywords (no stopwords). Be concise and precise.
+
+user_prompt: |
+  Process query: {query}
+  
+  Memory context: {memory_context}
+  
+  Extract:
+  - Companies, years, metrics
+  - Query type (comparison, trend, lookup, etc.)
+  - Generate keywords-only augmented query (no stopwords)
+  
+  Return structured data with extracted entities and augmented query.
+
+validation_prompt: |
+  Validate if retrieved content is sufficient for: {query}
+  
+  Retrieved Content:
+  {retrieved_content}
+  
+  Check: Are all required entities (companies, years, metrics) covered? Identify gaps.
+  
+  Return validation result.
+
+refinement_prompt: |
+  Previous retrieval insufficient. Refine query to retrieve missing information.
+  
+  Original: {query}
+  Gaps: {gaps}
+  Retrieved: Companies: {companies}, Years: {years}
+  
+  Suggest refined query with additional keywords to fill gaps.
+  
+  Return refined query.
+

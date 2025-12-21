@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+supabase
+python-dotenv
+httpx
+requests
+voyageai
+qdrant-client
+PyPDF2
+redis
+
+

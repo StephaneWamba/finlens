@@ -1,0 +1,313 @@
+# ============================================================================
+# RAILWAY IGNORE - Excludes all files/folders not needed for Railway backend
+# ============================================================================
+
+# ============================================================================
+# ENTIRE FOLDERS - Not needed for Railway backend
+# ============================================================================
+
+# Frontend (deployed separately on Vercel)
+frontend/
+
+# Infrastructure (GCP/Cloud Run specific)
+infrastructure/
+
+# Test directory
+mineru-test/
+
+# Archive/old code
+archive/
+
+# Test data
+data/
+
+# Vast.ai server (runs separately on Vast.ai instance)
+vast-ai-server/
+
+# Python cache (will be regenerated)
+__pycache__/
+**/__pycache__/
+
+# ============================================================================
+# HEAVY FILES - PDFs, models, binaries
+# ============================================================================
+
+# All PDFs
+*.pdf
+**/*.pdf
+
+# Model files
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.bin
+*.model
+*.weights
+
+# Large binaries
+*.so
+*.dylib
+*.dll
+
+# ============================================================================
+# TEST FILES
+# ============================================================================
+
+# Test Python files
+test*.py
+*_test.py
+*test*.py
+test_*.py
+*_test_*.py
+
+# Test output
+test_output/
+test_results/
+downloaded_parsed/
+merged_results/
+
+# Test scripts
+run_test.py
+test_upload.py
+test_with_url.py
+test_cloud_run*.py
+test_parallel*.py
+test_10pages.py
+test_5_documents.py
+check_*.py
+analyze_*.py
+download_*.py
+manual_merge.py
+
+# ============================================================================
+# DOCUMENTATION - Not needed for deployment
+# ============================================================================
+
+# All markdown files except README
+*.md
+!README.md
+
+# Specific documentation files (explicit)
+AI_SYSTEM_UNDERSTANDING.md
+BATCH_UPLOAD_FLOW_ANALYSIS.md
+CLEANUP_VALIDATION_REPORT.md
+CLOUD_RUN_SCALING_UPDATE.md
+CLOUD_RUN_VERIFICATION.md
+CODEBASE_VALIDATION_ANALYSIS.md
+CODEBASE_VALIDATION_ROADMAP.md
+CONTINUATION_PROMPT.md
+DOCUMENTS_PAGE_IMPLEMENTATION_PLAN.md
+FINANCIAL_DOMAIN_STRATEGY.md
+FRONTEND_DOCUMENTS_IMPLEMENTATION.md
+MERGE_COMPARISON.md
+PARSED_PDF_CLEANUP_COMPLETE.md
+PARSED_PDF_REMOVAL_PLAN.md
+QUERY_ENHANCEMENT_AND_RETRIEVAL_QUALITY.md
+RICH_METADATA_IMPLEMENTATION_ROADMAP.md
+SERVICE_ACCOUNTS_EXPLANATION.md
+SETUP_GCP_CREDENTIALS.md
+WORKFLOW_AUDIT.md
+
+# ============================================================================
+# CONFIGURATION FILES - Keep only essential
+# ============================================================================
+
+# GCP/Cloud specific configs
+cloud_run_env.json
+railway-key.json
+cloudbuild.yaml
+*.tf
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.tfvars.example
+
+# Vercel configs (frontend)
+vercel.json
+
+# Frontend configs
+frontend/package.json
+frontend/package-lock.json
+frontend/tsconfig.json
+frontend/next.config.ts
+frontend/vercel.json
+frontend/components.json
+frontend/logrocket.json
+frontend/eslint.config.mjs
+frontend/postcss.config.mjs
+frontend/middleware.ts
+frontend/next-env.d.ts
+
+# ============================================================================
+# DATA FILES - Test/sample data
+# ============================================================================
+
+# JSON data files (test data)
+data/**/*.json
+archive/output/*.json
+mineru-test/**/*.json
+mineru-test/merged_results/*.json
+mineru-test/downloaded_parsed/**/*.json
+
+# Keep essential JSON configs
+!railway.json
+!package.json
+!package-lock.json
+
+# ============================================================================
+# BUILD ARTIFACTS & CACHE
+# ============================================================================
+
+# Python build artifacts
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+venv.bak/
+env.bak/
+
+# Node modules (frontend and everywhere)
+node_modules/
+**/node_modules/
+.npm/
+**/.npm/
+.pnpm-store/
+**/.pnpm-store/
+.yarn/
+**/.yarn/
+.yarn-cache/
+**/.yarn-cache/
+
+# ============================================================================
+# LOGS & TEMPORARY FILES
+# ============================================================================
+
+# Log files
+*.log
+*.txt
+!requirements.txt
+!Procfile
+timing_logs.txt
+*.out
+
+# Output directories
+output/
+logs/
+*.output
+
+# ============================================================================
+# SCRIPTS - Build/deploy scripts not needed
+# ============================================================================
+
+# Shell scripts
+*.sh
+build.sh
+deploy_parallel.sh
+test_local.sh
+
+# PowerShell scripts
+*.ps1
+start_server.ps1
+
+# ============================================================================
+# IDE & EDITOR FILES
+# ============================================================================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# ============================================================================
+# SUPABASE - Keep migrations, exclude local files
+# ============================================================================
+
+# Supabase local development files
+supabase/.branches/
+supabase/.temp/
+supabase/config.toml
+
+# Keep migrations (might be needed)
+# supabase/migrations/ - KEEP THIS
+
+# ============================================================================
+# MISC FILES
+# ============================================================================
+
+# Test PDF
+test.pdf
+
+# Docker files (not needed for Railway)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Environment files (handled by Railway)
+.env
+.env.local
+.env.*.local
+
+# ============================================================================
+# SPECIFIC FILES TO EXCLUDE
+# ============================================================================
+
+# Infrastructure test file
+infrastructure/pdf-parser/test_process.py
+
+# Archive scripts
+archive/scripts/*.py
+archive/mineru/*.py
+archive/output/*
+
+# Mineru test files
+mineru-test/*.py
+mineru-test/*.sh
+mineru-test/*.yaml
+mineru-test/*.txt
+mineru-test/*.md
+mineru-test/docs/
+mineru-test/test_output/
+mineru-test/downloaded_parsed/
+mineru-test/merged_results/

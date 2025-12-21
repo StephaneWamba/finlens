@@ -1,0 +1,657 @@
+[
+    {
+        "type": "text",
+        "text": "FORM 8-K ",
+        "text_level": 1,
+        "bbox": [
+            433,
+            125,
+            574,
+            146
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "CURRENT REPORT PURSUANT TO SECTION 13 OR 15(D) OF THE SECURITIES EXCHANGE ACT OF 1934 ",
+        "text_level": 1,
+        "bbox": [
+            297,
+            180,
+            712,
+            225
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Date of Report (Date of earliest event reported) December 10, 2024 ",
+        "bbox": [
+            245,
+            237,
+            763,
+            252
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Microsoft Corporation ",
+        "text_level": 1,
+        "bbox": [
+            326,
+            288,
+            684,
+            317
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Washington (State or Other Jurisdiction of Incorporation) ",
+        "bbox": [
+            129,
+            355,
+            285,
+            385
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "001-37845 (Commission File Number) ",
+        "bbox": [
+            475,
+            353,
+            551,
+            385
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "One Microsoft Way, Redmond, Washington 98052-6399 ",
+        "text_level": 1,
+        "bbox": [
+            326,
+            397,
+            684,
+            412
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "(425) 882-8080 www.microsoft.com/investor ",
+        "bbox": [
+            425,
+            425,
+            584,
+            447
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Check the appropriate box below if the Form 8-K filing is intended to simultaneously satisfy the filing obligation of the registrant under any of the following provisions (see General Instruction A.2. below): ",
+        "bbox": [
+            50,
+            480,
+            937,
+            507
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "☐ Written communications pursuant to Rule 425 under the Securities Act (17 CFR 230.425) ☐ Soliciting material pursuant to Rule 14a-12 under the Exchange Act (17 CFR 240.14a-12) ☐ Pre-commencement communications pursuant to Rule 14d-2(b) under the Exchange Act (17 CFR 240.14d-2(b)) ☐ Pre-commencement communications pursuant to Rule 13e-4(c) under the Exchange Act (17 CFR 240.13e-4(c)) ",
+        "bbox": [
+            53,
+            513,
+            779,
+            589
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Securities registered pursuant to Section 12(b) of the Act: ",
+        "bbox": [
+            55,
+            599,
+            408,
+            614
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "table",
+        "img_path": "images/41b8f9b227f87e81b62ba3d5e9b23810f81bdad0cad158d1a47edcd207fb0087.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Title of each class</td><td>Trading Symbol</td><td>Name of exchange on which registered</td></tr><tr><td>Common stock, $0.00000625 par value per share</td><td>MSFT</td><td>NASDAQ</td></tr><tr><td>3.125% Notes due 2028</td><td>MSFT</td><td>NASDAQ</td></tr><tr><td>2.625% Notes due 2033</td><td>MSFT</td><td>NASDAQ</td></tr></table>",
+        "bbox": [
+            53,
+            627,
+            956,
+            687
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Indicate by check mark whether the registrant is an emerging growth company as defined in Rule 405 of the Securities Act of 1933 (§230.405 of this chapter) or Rule 12b-2 of the Securities Exchange Act of 1934 (§240.12b-2 of this chapter). Emerging growth company ☐ ",
+        "bbox": [
+            57,
+            698,
+            939,
+            724
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standards provided pursuant to Section 13(a) of the Exchange Act. ☐ ",
+        "bbox": [
+            55,
+            736,
+            941,
+            762
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "UNITED STATES SECURITIES AND EXCHANGE COMMISSION WASHINGTON, D.C. 20549 ",
+        "bbox": [
+            210,
+            33,
+            798,
+            91
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "discarded",
+        "text": "91-1144442 (IRS Employer Identification No.) ",
+        "bbox": [
+            756,
+            353,
+            862,
+            385
+        ],
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Item 5.07. Submission of Matters to a Vote of Security Holders ",
+        "text_level": 1,
+        "bbox": [
+            53,
+            38,
+            453,
+            52
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "On December 10, 2024, Microsoft Corporation (the “Company” or “Microsoft”) held its 2024 Annual Shareholders Meeting (the “Annual Meeting”). There were 7,434,436,393 shares of common stock entitled to be voted at the Annual Meeting, of which 6,417,206,480 were voted in person or by proxy. The results for each item submitted for a vote of shareholders are as follows. The shareholders: ",
+        "bbox": [
+            53,
+            58,
+            942,
+            97
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(1) Voted to elect each of the 12 nominees for director. ",
+        "bbox": [
+            55,
+            109,
+            386,
+            122
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(2) Approved, on an advisory basis, the compensation of the Company’s named executive officers. ",
+        "bbox": [
+            55,
+            134,
+            657,
+            149
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(3) Voted to ratify the appointment of Deloitte & Touche LLP as the Company’s independent registered public accounting firm for fiscal year 2025. ",
+        "bbox": [
+            53,
+            160,
+            926,
+            187
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(4) Did not approve a shareholder proposal concerning a report on risks of weapons development. ",
+        "bbox": [
+            55,
+            199,
+            653,
+            213
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(5) Did not approve a shareholder proposal concerning an assessment of investing in bitcoin. ",
+        "bbox": [
+            55,
+            225,
+            626,
+            238
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(6) Did not approve a shareholder proposal concerning a report on data operations in human rights hotspots. ",
+        "bbox": [
+            55,
+            250,
+            719,
+            264
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(7) Did not approve a shareholder proposal concerning a report on artificial intelligence and machine learning tools for oil and gas development and production. ",
+        "bbox": [
+            55,
+            276,
+            936,
+            302
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(8) Did not approve a shareholder proposal concerning a report on artificial intelligence (“AI”) misinformation and disinformation. ",
+        "bbox": [
+            57,
+            314,
+            862,
+            328
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "(9) Did not approve a shareholder proposal concerning a report on AI data sourcing accountability. ",
+        "bbox": [
+            55,
+            340,
+            665,
+            355
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "The Company’s inspector of election certified the following vote tabulations: ",
+        "bbox": [
+            53,
+            366,
+            531,
+            380
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Election of directors ",
+        "text_level": 1,
+        "bbox": [
+            53,
+            393,
+            186,
+            406
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "table",
+        "img_path": "images/f31428aa766b185d0f8f5b4db6a1c164c5b0b1689ae9c27e7977321f84bd7378.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Director</td><td>Vote Results</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Broker Non-Votes</td></tr><tr><td>Reid G. Hoffman</td><td>Re-elected</td><td>99.20</td><td>5,148,624,453</td><td>41,556,212</td><td>8,911,649</td><td>1,218,114,166</td></tr><tr><td>Hugh F. Johnston</td><td>Re-elected</td><td>91.89</td><td>4,768,792,470</td><td>420,605,495</td><td>9,694,349</td><td>1,218,114,166</td></tr><tr><td>Teri L. List</td><td>Re-elected</td><td>98.68</td><td>5,120,774,949</td><td>68,560,265</td><td>9,757,100</td><td>1,218,114,166</td></tr><tr><td>Catherine MacGregor</td><td>Re-elected</td><td>99.83</td><td>5,180,667,633</td><td>8,873,170</td><td>9,551,511</td><td>1,218,114,166</td></tr><tr><td>Mark A. L. Mason</td><td>Re-elected</td><td>99.59</td><td>5,167,419,348</td><td>21,404,525</td><td>10,268,441</td><td>1,218,114,166</td></tr><tr><td>Satya Nadella</td><td>Re-elected</td><td>94.35</td><td>4,878,901,541</td><td>291,907,066</td><td>28,283,707</td><td>1,218,114,166</td></tr><tr><td>Sandra E. Peterson</td><td>Re-elected</td><td>98.14</td><td>5,092,981,786</td><td>96,435,357</td><td>9,675,171</td><td>1,218,114,166</td></tr><tr><td>Penny S. Pritzker</td><td>Re-elected</td><td>99.60</td><td>5,170,315,477</td><td>20,548,862</td><td>8,227,975</td><td>1,218,114,166</td></tr><tr><td>Carlos A. Rodriguez</td><td>Re-elected</td><td>98.18</td><td>5,094,003,865</td><td>94,407,242</td><td>10,681,207</td><td>1,218,114,166</td></tr><tr><td>Charles W. Scharf</td><td>Re-elected</td><td>98.26</td><td>5,098,538,567</td><td>90,405,839</td><td>10,147,908</td><td>1,218,114,166</td></tr><tr><td>John W. Stanton</td><td>Re-elected</td><td>99.40</td><td>5,158,411,139</td><td>30,890,450</td><td>9,790,725</td><td>1,218,114,166</td></tr><tr><td>Emma N. Walmsley</td><td>Re-elected</td><td>99.07</td><td>5,141,345,085</td><td>48,471,729</td><td>9,275,500</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            53,
+            419,
+            956,
+            593
+        ],
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Advisory Vote to Approve Named Executive Officer Compensation ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            39,
+            484,
+            52
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/ddcb11ec302d37b0d0d99221c713561af4895177189154cc212771ae8d3a7baf.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Approved</td><td>91.34</td><td>4,727,655,048</td><td>448,256,975</td><td>23,180,291</td><td>,218,114,166</td></tr></table>",
+        "bbox": [
+            53,
+            73,
+            949,
+            98
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Ratification of Appointment of Independent Auditor for Fisal Year 2025 ",
+        "text_level": 1,
+        "bbox": [
+            53,
+            110,
+            512,
+            123
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/694b6a0b7dc3a3c479ea7846129244608899145b1542b714373eca0666e214f4.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Approved</td><td>94.32</td><td>6,042,000,471</td><td>364,022,603</td><td>11,183,406</td><td>0</td></tr></table>",
+        "bbox": [
+            58,
+            144,
+            954,
+            171
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Shareholder Proposal: Report on Risks of Weapons Development ",
+        "text_level": 1,
+        "bbox": [
+            52,
+            181,
+            473,
+            195
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/340cca0e1a5894ed59886e16148977f40a3a40bceb411d5023d5e20db4c0e9ae.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>15.26</td><td>783,837,170</td><td>4,353,192,956</td><td>62,062,188</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            58,
+            216,
+            954,
+            242
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Shareholder Proposal: Assessment of Investing in Bitcoin ",
+        "text_level": 1,
+        "bbox": [
+            57,
+            252,
+            420,
+            267
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/1d3e01a7c01d8d5b10f321330592053288a30654bbbad6c156442f163f7a1819.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>ote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>0.55</td><td>28,234,424</td><td>5,148,248,368</td><td>22,609,522</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            60,
+            288,
+            954,
+            313
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Shareholder Proposal: Report on Data Operations in Human Rights Hotspots ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            324,
+            549,
+            338
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/79decc8b9191c54d47a92d959cc0209672a6354c5bf131c3ecf40952e4197521.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>32.03</td><td>1,647,287,434</td><td>3,495,428,268</td><td>56,376,612</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            58,
+            359,
+            963,
+            384
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "hareholder Proposal: Report on Artificial Intelligence and Machine Learning Tools for Oil and Gas Development and Production ",
+        "text_level": 1,
+        "bbox": [
+            63,
+            396,
+            899,
+            409
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/be57d442c05035cc25151c0dd394af1c46bf4b9db00adbf82c058d829ac8cd3d.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>9.71</td><td>498,928,539</td><td>4,641,011,840</td><td>59,151,935</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            55,
+            431,
+            957,
+            457
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "hareholder Proposal: Report on AI Misinformation and Disinformation ",
+        "text_level": 1,
+        "bbox": [
+            63,
+            467,
+            522,
+            482
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/ae5a909f149d9e537a3fefbc779315407525ce2f381b7bea86a0ab10307bab69.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>18.67</td><td>956,598,432</td><td>4,167,583,544</td><td>74,910,338</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            50,
+            503,
+            956,
+            527
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Shareholder Proposal: Report onAI Data Sourcing Accountability ",
+        "text_level": 1,
+        "bbox": [
+            53,
+            539,
+            480,
+            553
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "table",
+        "img_path": "images/fbfd882a1386a8d756ff49e187b280e0f59e5accca77fca3c6d59320b661b36f.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>Vote result</td><td>% Votes For</td><td>For</td><td>Against</td><td>Abstain</td><td>Non-Votes</td></tr><tr><td>Not approved</td><td>36.19</td><td>1,803,298,481</td><td>3,179,152,976</td><td>216,640,857</td><td>1,218,114,166</td></tr></table>",
+        "bbox": [
+            55,
+            574,
+            957,
+            599
+        ],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Item 7.01. Regulation FD Disclosure ",
+        "text_level": 1,
+        "bbox": [
+            55,
+            39,
+            287,
+            51
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "In January 2021, Microsoft announced a minority investment in Cruise, an autonomous vehicle company which is a majority-owned subsidiary of General Motors Company (“GM”). On December 10, 2024, GM announced its intent to realign its autonomous driving strategy, no longer fund Cruise’s robotaxi development work, and pursue the acquisition of minority investor shares. As a result, we expect to record an impairment charge of approximately \\$800 million in the second quarter of fiscal year 2025. This charge will be recorded in other income and expense and was not included in our second quarter guidance provided on October 30, 2024. It is estimated to have a negative impact of approximately \\$0.09 to second quarter diluted earnings per share. ",
+        "bbox": [
+            53,
+            58,
+            954,
+            135
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "This Form 8-K contains forward-looking statements, which are any predictions, projections or other statements about future events based on current expectations and assumptions that are subject to risks and uncertainties, which are described in our filings with the Securities and Exchange Commission. Forward-looking statements speak only as of the date they are made. Readers are cautioned not to put undue reliance on forward-looking statements, and Microsoft undertakes no duty to update any forward-looking statement to conform the statement to actual results or changes in the company’s expectations. ",
+        "bbox": [
+            53,
+            147,
+            952,
+            212
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "In accordance with General Instruction B.2 of Form 8-K, the information in Item 7.01 of this Current Report on Form 8-K shall not be deemed to be “filed” for purposes of Section 18 of the Securities Exchange Act of 1934, as amended (the “Exchange Act”), or otherwise subject to the liability of that section, and shall not be incorporated by reference into any registration statement or other document filed under the Securities Act of 1933, as amended, or the Exchange Act, except as shall be expressly set forth by specific reference in such filing. ",
+        "bbox": [
+            53,
+            224,
+            954,
+            277
+        ],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "SIGNATURE ",
+        "text_level": 1,
+        "bbox": [
+            460,
+            39,
+            547,
+            51
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the undersigned hereunto duly authorized. ",
+        "bbox": [
+            53,
+            64,
+            931,
+            90
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "MICROSOFT CORPORATION ",
+        "text_level": 1,
+        "bbox": [
+            636,
+            104,
+            831,
+            117
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "table",
+        "img_path": "images/1741879e329b469dedd187e3b40f67ac6815689d61c52f8a8723f91598b7db34.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "<table><tr><td>/s/ Keith R. Dolliver</td></tr><tr><td>Keith R. Dolliver</td></tr><tr><td></td></tr><tr><td>Corporate Secretary</td></tr></table>",
+        "bbox": [
+            510,
+            129,
+            954,
+            172
+        ],
+        "page_idx": 4
+    },
+    {
+        "type": "discarded",
+        "text": "Date: December 11, 2024 ",
+        "bbox": [
+            53,
+            131,
+            211,
+            144
+        ],
+        "page_idx": 4
+    }
+]
