@@ -3,13 +3,16 @@
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.12+-blue.svg" alt="Python Version">
   <img src="https://img.shields.io/badge/TypeScript-5.0+-blue.svg" alt="TypeScript Version">
+  <img src="https://img.shields.io/badge/LangGraph-0.1+-purple.svg" alt="LangGraph Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
   <img src="https://img.shields.io/badge/Status-Production--Ready-orange.svg" alt="Status">
 </div>
 
 ## 🚀 Overview
 
-**FinLens** is a production-ready, enterprise-grade conversational AI system for financial document analysis. Built with modern AI orchestration patterns, it combines multi-agent RAG (Retrieval-Augmented Generation), GPU-accelerated document processing, and real-time financial data insights.
+**FinLens** solves the critical challenge of extracting actionable insights from unstructured, complex financial documents. Traditional financial analysis requires hours of manual review through dense SEC filings, annual reports, and regulatory documents. Our AI-powered system transforms this process by providing instant, conversational access to financial data through intelligent document processing and multi-agent analysis.
+
+Built with production-grade AI orchestration, FinLens combines GPU-accelerated document parsing, multi-agent RAG workflows, and enterprise-scale vector search to deliver accurate, contextual financial insights in seconds rather than hours.
 
 ### ✨ Key Features
 
