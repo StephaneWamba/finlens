@@ -7,7 +7,7 @@ import { PieChart } from './PieChart';
 import type { ChartData } from '@/types/api';
 
 interface ChartRendererProps {
-  chart: ChartData;
+  readonly chart: ChartData;
 }
 
 export function ChartRenderer({ chart }: ChartRendererProps) {

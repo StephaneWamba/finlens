@@ -29,9 +29,9 @@ if (typeof window !== 'undefined') {
 }
 
 interface PDFViewerProps {
-  pdfUrl: string;
-  pageNumber?: number; // Optional now since we show all pages
-  onPageChange?: (page: number) => void; // Optional now
+  readonly pdfUrl: string;
+  readonly pageNumber?: number; // Optional now since we show all pages
+  readonly onPageChange?: (page: number) => void; // Optional now
   className?: string;
 }
 
@@ -55,8 +55,8 @@ export function PDFViewer({
     };
 
     updatePageWidth();
-    window.addEventListener('resize', updatePageWidth);
-    return () => window.removeEventListener('resize', updatePageWidth);
+    globalThis.addEventListener('resize', updatePageWidth);
+    return () => globalThis.removeEventListener('resize', updatePageWidth);
   }, []);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {

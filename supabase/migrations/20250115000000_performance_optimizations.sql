@@ -8,7 +8,7 @@ RETURNS TABLE(id UUID, queries_used_this_month INTEGER) AS $$
 BEGIN
     RETURN QUERY
     UPDATE users
-    SET queries_used_this_month = queries_used_this_month + 1
+    SET queries_used_this_month = users.queries_used_this_month + 1
     WHERE users.id = user_id_param
     RETURNING users.id, users.queries_used_this_month;
 END;
@@ -117,7 +117,7 @@ RETURNS TABLE(id UUID, queries_used_this_month INTEGER) AS $$
 BEGIN
     RETURN QUERY
     UPDATE users
-    SET queries_used_this_month = queries_used_this_month + 1
+    SET queries_used_this_month = users.queries_used_this_month + 1
     WHERE users.id = user_id_param
     RETURNING users.id, users.queries_used_this_month;
 END;

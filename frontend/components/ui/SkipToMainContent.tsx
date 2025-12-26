@@ -6,7 +6,7 @@
  * Accessible skip link that allows keyboard users to jump to main content
  */
 
-export function SkipToMainContent({ mainContentId = 'main-content' }: { mainContentId?: string }) {
+export function SkipToMainContent({ mainContentId = 'main-content' }: Readonly<{ mainContentId?: string }>) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const main = document.getElementById(mainContentId);

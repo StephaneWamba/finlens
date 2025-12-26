@@ -18,11 +18,11 @@ export interface ChatMessage {
 }
 
 interface ChatMessageListProps {
-  messages: ChatMessage[];
-  isLoading?: boolean;
-  onLoadMore?: () => Promise<void>;
-  hasMore?: boolean;
-  isLoadingMore?: boolean;
+  readonly messages: ChatMessage[];
+  readonly isLoading?: boolean;
+  readonly onLoadMore?: () => Promise<void>;
+  readonly hasMore?: boolean;
+  readonly isLoadingMore?: boolean;
 }
 
 export function ChatMessageList({ 
@@ -46,7 +46,7 @@ export function ChatMessageList({
         </div>
       )}
       {messages.map((message, index) => (
-        <MessageBubble key={index} message={message} />
+        <MessageBubble key={`message-${index}-${message.content.substring(0, 20)}`} message={message} />
       ))}
       {isLoading && (
         <div className="flex justify-start animate-in fade-in slide-in-from-bottom-2 duration-300 mb-4">

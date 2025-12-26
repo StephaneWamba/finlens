@@ -1,6 +1,7 @@
 """FastAPI application entry point."""
 
 import logging
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -83,6 +84,13 @@ async def root():
     }
 
 
+@app.get("/health")
+async def health_check_root():
+    """Root-level health check for Railway"""
+    from backend.api.v1.routes.health import health_check
+    return await health_check()
+
+
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
     """Global exception handler"""
@@ -94,3 +102,10 @@ async def global_exception_handler(request, exc):
             "detail": str(exc) if settings.DEBUG else "An unexpected error occurred"
         }
     )
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", "8000"))
+    host = os.getenv("HOST", "0.0.0.0")
+    uvicorn.run(app, host=host, port=port)

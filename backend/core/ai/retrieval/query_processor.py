@@ -20,7 +20,7 @@ class QueryProcessor:
     All entity extraction and query augmentation is done by LLM - no heuristics.
     """
 
-    def __init__(self, embedder: Union[OpenAIEmbedder, VoyageEmbedder, EmbeddingManager] = None, llm_augmenter: LLMQueryAugmenter = None):
+    def __init__(self, embedder: OpenAIEmbedder | VoyageEmbedder | EmbeddingManager | None = None, llm_augmenter: LLMQueryAugmenter | None = None):
         if embedder is None:
             # Use singleton EmbeddingManager to get the configured embedder
             from backend.core.ai.embedding.manager import get_embedding_manager
@@ -173,7 +173,7 @@ _query_processor_instance = None
 _query_processor_lock = threading.Lock()
 
 
-def get_query_processor(embedder: Union[OpenAIEmbedder, VoyageEmbedder, EmbeddingManager] = None, llm_augmenter: LLMQueryAugmenter = None) -> QueryProcessor:
+def get_query_processor(embedder: OpenAIEmbedder | VoyageEmbedder | EmbeddingManager | None = None, llm_augmenter: LLMQueryAugmenter | None = None) -> QueryProcessor:
     """
     Get singleton QueryProcessor instance.
     

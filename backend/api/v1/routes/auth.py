@@ -282,12 +282,15 @@ async def oauth_callback(request: OAuthCallbackRequest):
                 "redirect_to": redirect_url,
             }
 
+            # Content-Type constant to avoid duplication
+            FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded"
+            
             token_response = await client.post(
                 token_url,
                 data=token_data_no_grant,
                 headers={
                     "apikey": settings.SUPABASE_KEY,
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": FORM_URLENCODED_CONTENT_TYPE,
                 },
             )
 
@@ -306,7 +309,7 @@ async def oauth_callback(request: OAuthCallbackRequest):
                     data=token_data,
                     headers={
                         "apikey": settings.SUPABASE_KEY,
-                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Content-Type": FORM_URLENCODED_CONTENT_TYPE,
                     },
                 )
 
@@ -325,7 +328,7 @@ async def oauth_callback(request: OAuthCallbackRequest):
                     data=token_data_alt,
                     headers={
                         "apikey": settings.SUPABASE_KEY,
-                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Content-Type": FORM_URLENCODED_CONTENT_TYPE,
                     },
                 )
 

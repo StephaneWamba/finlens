@@ -58,6 +58,10 @@ export default function AnalyticsPage() {
     refetchOnMount: false, // Use cached data if fresh - only refetch if stale
   });
 
+  // Memoize chart data transformations for better performance (must be before any early returns)
+  const trendChartData = useMemo(() => transformTrendChartData(trends?.trends), [trends]);
+  const costChartData = useMemo(() => transformCostChartData(trends?.trends), [trends]);
+
   if (isLoadingUsage || isLoadingHistory || isLoadingTrends) {
     return (
       <div className="space-y-6 p-6">
@@ -87,7 +91,7 @@ export default function AnalyticsPage() {
         showSpinner={false}
         action={{
           label: 'Refresh Page',
-          onClick: () => window.location.reload(),
+          onClick: () => globalThis.location.reload(),
         }}
       />
     );
@@ -103,10 +107,6 @@ export default function AnalyticsPage() {
     total_tokens: 0,
     period_days: 30,
   };
-
-  // Memoize chart data transformations for better performance
-  const trendChartData = useMemo(() => transformTrendChartData(trends?.trends), [trends]);
-  const costChartData = useMemo(() => transformCostChartData(trends?.trends), [trends]);
 
   return (
     <div className="space-y-6 p-6">
@@ -162,11 +162,13 @@ export default function AnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {periodStats.total_tokens > 0
-                ? periodStats.total_tokens >= 1000
-                  ? `${(periodStats.total_tokens / 1000).toFixed(1)}K`
-                  : periodStats.total_tokens.toLocaleString()
-                : '0'}
+              {(() => {
+                if (periodStats.total_tokens === 0) return '0';
+                if (periodStats.total_tokens >= 1000) {
+                  return `${(periodStats.total_tokens / 1000).toFixed(1)}K`;
+                }
+                return periodStats.total_tokens.toLocaleString();
+              })()}
             </div>
             <p className="text-xs text-gray-500 mt-1">Tokens processed</p>
           </CardContent>

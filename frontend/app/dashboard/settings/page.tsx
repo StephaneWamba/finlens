@@ -107,7 +107,7 @@ export default function SettingsPage() {
         showSpinner={false}
         action={{
           label: 'Refresh Page',
-          onClick: () => window.location.reload(),
+          onClick: () => globalThis.location.reload(),
         }}
       />
     );

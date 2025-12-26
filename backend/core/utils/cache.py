@@ -6,7 +6,7 @@ and other frequently accessed data.
 """
 
 from typing import Optional, Dict, Any, Callable
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import threading
 import logging
 
@@ -18,11 +18,11 @@ class CacheEntry:
 
     def __init__(self, value: Any, ttl_seconds: int):
         self.value = value
-        self.expires_at = datetime.utcnow() + timedelta(seconds=ttl_seconds)
+        self.expires_at = datetime.now(timezone.utc) + timedelta(seconds=ttl_seconds)
 
     def is_expired(self) -> bool:
         """Check if cache entry has expired"""
-        return datetime.utcnow() >= self.expires_at
+        return datetime.now(timezone.utc) >= self.expires_at
 
 
 class SimpleCache:

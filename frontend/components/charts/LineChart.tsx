@@ -26,8 +26,8 @@ ChartJS.register(
 );
 
 interface LineChartProps {
-  data: ChartData['data'];
-  options?: ChartOptions<'line'>;
+  readonly data: ChartData['data'];
+  readonly options?: ChartOptions<'line'>;
 }
 
 export function LineChart({ data, options }: LineChartProps) {

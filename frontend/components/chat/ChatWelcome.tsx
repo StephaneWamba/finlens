@@ -7,7 +7,7 @@
  */
 
 interface ChatWelcomeProps {
-  onExampleClick: (query: string) => void;
+  readonly onExampleClick: (query: string) => void;
 }
 
 const EXAMPLE_QUERIES = [
@@ -33,10 +33,10 @@ export function ChatWelcome({ onExampleClick }: ChatWelcomeProps) {
         revenue, compare companies, and visualize data with beautiful charts.
       </p>
       <div className="flex flex-wrap gap-3 justify-center">
-        {EXAMPLE_QUERIES.map((example, idx) => (
+        {EXAMPLE_QUERIES.map((example) => (
           <button
-            key={idx}
-            onClick={() => onExampleClick(example.replace(/"/g, ''))}
+            key={example}
+            onClick={() => onExampleClick(example.replaceAll('"', ''))}
             className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 hover:border-blue-300 hover:bg-blue-50/50 hover:text-blue-700 transition-all duration-200 shadow-sm hover:shadow-md font-medium"
           >
             &quot;{example}&quot;

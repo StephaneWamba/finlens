@@ -84,7 +84,7 @@ export const ChatInterface = memo(function ChatInterface({ initialSessionId, url
   useEffect(() => {
     if (sessionId && typeof window !== 'undefined') {
       // Dispatch event to trigger sidebar refetch when session changes
-      window.dispatchEvent(new CustomEvent('session-updated'));
+      globalThis.dispatchEvent(new CustomEvent('session-updated'));
     }
   }, [sessionId]);
 

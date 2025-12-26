@@ -7,8 +7,8 @@ import { AlertCircle, RefreshCw, Home } from 'lucide-react';
 import Link from 'next/link';
 
 interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+  readonly children: ReactNode;
+  readonly fallback?: ReactNode;
 }
 
 interface State {
@@ -53,11 +53,19 @@ export class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: Error | unknown): State {
     // Ensure we always have an Error object
-    const errorObj = error instanceof Error 
-      ? error 
-      : new Error(typeof error === 'object' && error !== null 
-          ? ((error as { message?: string; error?: string }).message || (error as { error?: string }).error || JSON.stringify(error))
-          : String(error));
+    let errorObj: Error;
+    if (error instanceof Error) {
+      errorObj = error;
+    } else {
+      let errorMessage: string;
+      if (typeof error === 'object' && error !== null) {
+        const errorWithMessage = error as { message?: string; error?: string };
+        errorMessage = errorWithMessage.message || errorWithMessage.error || JSON.stringify(error);
+      } else {
+        errorMessage = String(error);
+      }
+      errorObj = new Error(errorMessage);
+    }
     return { hasError: true, error: errorObj };
   }
 

@@ -243,7 +243,7 @@ async def upload_document(
             descriptions_list = [None] * len(files_list)
 
         # Process each file: upload to Supabase, extract metadata, then send to Vast.ai
-        async def process_file_with_description(file: UploadFile, file_description: Optional[str], index: int):
+        async def process_file_with_description(file: UploadFile, file_description: Optional[str]):
             """Process a single file: upload to Supabase, extract metadata, send to Vast.ai."""
             # Reset file pointer for validation (file may have been read already)
             await file.seek(0)
@@ -261,7 +261,7 @@ async def upload_document(
 
         # Process all files in parallel (each with its own metadata)
         results_data = await asyncio.gather(*[
-            process_file_with_description(file, descriptions_list[i], i)
+            process_file_with_description(file, descriptions_list[i])
             for i, file in enumerate(files_list)
         ], return_exceptions=True)
 

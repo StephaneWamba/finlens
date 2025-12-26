@@ -17,8 +17,7 @@ class SubQuery(BaseModel):
     intent: str
     companies: List[str]
     years: Optional[List[int]] = None
-    # [start_year, end_year] - changed from tuple to List for JSON schema compatibility
-    year_range: Optional[List[int]] = None
+    year_range: Optional[List[int]] = None  # [start_year, end_year]
     metrics: List[str] = Field(default_factory=list)  # What metrics it needs
     priority: int = 1  # 1=high, 2=medium, 3=low
     # Augmented/refined query text for retrieval

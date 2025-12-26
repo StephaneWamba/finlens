@@ -22,8 +22,7 @@ class SupabaseStorageClient:
         self,
         file_content: bytes,
         file_path: str,
-        content_type: str,
-        user_id: Optional[str] = None
+        content_type: str
     ) -> str:
         """
         Upload file to Supabase Storage.
@@ -32,7 +31,6 @@ class SupabaseStorageClient:
             file_content: File content as bytes
             file_path: Storage path (e.g., "{user_id}/{document_id}/{filename}")
             content_type: MIME type
-            user_id: User ID (optional, for logging)
 
         Returns:
             Storage path to file

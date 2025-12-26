@@ -124,7 +124,7 @@ export default function BillingPage() {
         showSpinner={false}
         action={{
           label: 'Refresh Page',
-          onClick: () => window.location.reload(),
+          onClick: () => globalThis.location.reload(),
         }}
       />
     );
@@ -180,11 +180,11 @@ export default function BillingPage() {
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
                     className={`h-2.5 rounded-full transition-all ${
-                      usagePercentage >= 90
-                        ? 'bg-red-500'
-                        : usagePercentage >= 70
-                        ? 'bg-yellow-500'
-                        : 'bg-blue-600'
+                      (() => {
+                        if (usagePercentage >= 90) return 'bg-red-500';
+                        if (usagePercentage >= 70) return 'bg-yellow-500';
+                        return 'bg-blue-600';
+                      })()
                     }`}
                     style={{ width: `${Math.min(usagePercentage, 100)}%` }}
                   ></div>
@@ -195,8 +195,8 @@ export default function BillingPage() {
             <div className="pt-4 border-t">
               <h4 className="font-semibold mb-3">Plan Features</h4>
               <ul className="space-y-2">
-                {tierInfo.features.map((feature, index) => (
-                  <li key={index} className="flex items-center text-sm text-gray-600">
+                {tierInfo.features.map((feature) => (
+                  <li key={feature} className="flex items-center text-sm text-gray-600">
                     <Check className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
                     {feature}
                   </li>
@@ -244,8 +244,8 @@ export default function BillingPage() {
                     <Zap className="h-8 w-8 text-blue-600" />
                   </div>
                   <ul className="space-y-2 mb-4 text-sm">
-                    {TIER_FEATURES.pro.features.map((feature, index) => (
-                      <li key={index} className="flex items-center">
+                    {TIER_FEATURES.pro.features.map((feature) => (
+                      <li key={feature} className="flex items-center">
                         <Check className="h-4 w-4 text-green-500 mr-2" />
                         {feature}
                       </li>
@@ -272,8 +272,8 @@ export default function BillingPage() {
                   <Building2 className="h-8 w-8 text-blue-600" />
                 </div>
                 <ul className="space-y-2 mb-4 text-sm">
-                  {TIER_FEATURES.enterprise.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
+                  {TIER_FEATURES.enterprise.features.map((feature) => (
+                    <li key={feature} className="flex items-center">
                       <Check className="h-4 w-4 text-green-500 mr-2" />
                       {feature}
                     </li>
@@ -285,7 +285,11 @@ export default function BillingPage() {
                   onClick={() => handleUpgrade('enterprise')}
                   disabled={isUpgrading}
                 >
-                  {isUpgrading ? 'Processing...' : currentTier === 'pro' ? 'Upgrade to Enterprise' : 'Get Enterprise'}
+                  {(() => {
+                    if (isUpgrading) return 'Processing...';
+                    if (currentTier === 'pro') return 'Upgrade to Enterprise';
+                    return 'Get Enterprise';
+                  })()}
                 </Button>
               </div>
             </div>

@@ -7,11 +7,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
-  onCancel?: () => void;
-  isLoading?: boolean;
-  disabled?: boolean;
-  placeholder?: string;
+  readonly onSend: (message: string) => void;
+  readonly onCancel?: () => void;
+  readonly isLoading?: boolean;
+  readonly disabled?: boolean;
+  readonly placeholder?: string;
 }
 
 export function ChatInput({
@@ -134,7 +134,7 @@ export function ChatInput({
         )}
       </div>
       <p id="chat-input-help" className="text-xs text-gray-400 text-center mt-3">
-        Press <kbd className="px-2 py-0.5 bg-gray-100 rounded-md text-xs font-medium border border-gray-200">Enter</kbd> to send,
+        Press <kbd className="px-2 py-0.5 bg-gray-100 rounded-md text-xs font-medium border border-gray-200">Enter</kbd> to send,{' '}
         <kbd className="px-2 py-0.5 bg-gray-100 rounded-md text-xs font-medium border border-gray-200 ml-1.5">Shift + Enter</kbd> for new line
       </p>
     </form>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ToastProvider } from '@/lib/utils/toast';
 import { LogRocketInit } from '@/components/LogRocketInit';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   const [queryClient] = useState(
     () =>
       new QueryClient({

@@ -9,11 +9,11 @@ import { SourcesToggle } from './SourcesToggle';
 import type { ChartData } from '@/types/api';
 
 interface MessageBubbleProps {
-  message: {
-    role: 'user' | 'assistant';
-    content: string;
-    charts?: ChartData[];
-    sources?: Array<{ company: string; year: number; page: number }>;
+  readonly message: {
+    readonly role: 'user' | 'assistant';
+    readonly content: string;
+    readonly charts?: ChartData[];
+    readonly sources?: Array<{ company: string; year: number; page: number }>;
   };
 }
 
@@ -36,7 +36,7 @@ function renderContentWithCharts(content: string, charts: ChartData[]) {
     }
     
     // Add chart
-    const placeholderNum = parseInt(match[1], 10);
+    const placeholderNum = Number.parseInt(match[1], 10);
     if (chartIndex < charts.length) {
       parts.push({
         type: 'chart',
@@ -73,7 +73,7 @@ function renderContentWithCharts(content: string, charts: ChartData[]) {
         if (part.type === 'chart' && part.chartIndex !== undefined && charts[part.chartIndex]) {
           return (
             <div
-              key={`chart-${index}`}
+              key={`chart-${part.chartIndex}-${index}`}
               className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-200/80 shadow-sm my-4"
             >
               <ChartRenderer chart={charts[part.chartIndex]} />
@@ -82,7 +82,7 @@ function renderContentWithCharts(content: string, charts: ChartData[]) {
         } else if (part.content) {
           return (
             <ReactMarkdown
-              key={`text-${index}`}
+              key={`text-${index}-${part.content.substring(0, 10)}`}
               remarkPlugins={[remarkGfm]}
               components={{
                 // Style markdown elements with improved typography

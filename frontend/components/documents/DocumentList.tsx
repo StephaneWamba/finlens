@@ -24,15 +24,15 @@ import { useToast } from '@/lib/utils/toast';
 import { cn } from '@/lib/utils';
 
 interface DocumentListProps {
-  onView?: (documentId: string) => void;
-  compact?: boolean; // Compact mode for sidebar (single column list)
+  readonly onView?: (documentId: string) => void;
+  readonly compact?: boolean; // Compact mode for sidebar (single column list)
 }
 
 const MAX_POLL_DURATION_MS = 30 * 60 * 1000; // 30 minutes
 const POLL_INTERVAL_MS = 5000; // 5 seconds
 const DOCUMENTS_PER_PAGE = 12; // Grid: 3 columns x 4 rows
 
-export function DocumentList({ onView, compact = false }: DocumentListProps) {
+export function DocumentList({ onView }: DocumentListProps) {
   const { success, error: showError } = useToast();
   const queryClient = useQueryClient();
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export function DocumentList({ onView, compact = false }: DocumentListProps) {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // Scroll to top when page changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    globalThis.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (isLoading) {
@@ -163,7 +163,6 @@ export function DocumentList({ onView, compact = false }: DocumentListProps) {
   }
 
   const documents = data?.documents || [];
-  const total = data?.total || 0;
 
   if (documents.length === 0) {
     return (
@@ -297,7 +296,7 @@ export function DocumentList({ onView, compact = false }: DocumentListProps) {
             <DialogDescription className="pt-2">
               Are you sure you want to delete{' '}
               <span className="font-semibold text-gray-900">
-                "{documentToDelete?.original_filename}"
+                &quot;{documentToDelete?.original_filename}&quot;
               </span>
               ? This action cannot be undone.
             </DialogDescription>

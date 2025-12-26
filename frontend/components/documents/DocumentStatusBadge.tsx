@@ -6,8 +6,8 @@ import type { DocumentStatus } from '@/types/api';
 import { cn } from '@/lib/utils';
 
 interface DocumentStatusBadgeProps {
-  status: DocumentStatus;
-  className?: string;
+  readonly status: DocumentStatus;
+  readonly className?: string;
 }
 
 const statusConfig: Record<

@@ -12,8 +12,8 @@ import { useToast } from '@/lib/utils/toast';
 import type { BatchUploadResponse } from '@/types/api';
 
 interface DocumentUploadProps {
-  onUploadSuccess?: () => void;
-  onUploadError?: (error: string) => void;
+  readonly onUploadSuccess?: () => void;
+  readonly onUploadError?: (error: string) => void;
 }
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
@@ -278,7 +278,7 @@ export function DocumentUpload({ onUploadSuccess, onUploadError }: DocumentUploa
         <div className="mt-4 space-y-2">
           {fileStatuses.map((fileStatus, index) => (
             <div
-              key={index}
+              key={`${fileStatus.file.name}-${index}`}
               className={cn(
                 'flex items-center gap-2 p-2 rounded text-sm',
                 fileStatus.status === 'success' && 'bg-green-50 text-green-700',

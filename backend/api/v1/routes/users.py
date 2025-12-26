@@ -148,7 +148,7 @@ async def get_my_query_history(
     """Get current user's query history."""
     try:
         from backend.core.usage.tracker import usage_tracker
-        from datetime import datetime, timedelta
+        from datetime import datetime, timedelta, timezone
 
         user_id = current_user["id"]
         limit = min(limit, 100)  # Cap at 100
@@ -160,7 +160,7 @@ async def get_my_query_history(
 
         # Filter by days if provided
         if days:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = datetime.now(timezone.utc) - timedelta(days=days)
             query = query.gte("created_at", cutoff_date.isoformat())
 
         # Order by most recent first, paginate

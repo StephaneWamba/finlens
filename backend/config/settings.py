@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     )
     EMBEDDING_DIMENSIONS: int = Field(
         default=2048,
-        description="Embedding dimensions (2048 for voyage-large-2)"
+        description="Embedding dimensions (2048 for Voyage models: voyage-large-2, voyage-finance-2)"
     )
 
     # Voyage AI settings
@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     )
     VOYAGE_EMBEDDING_MODEL: str = Field(
         default="voyage-large-2",
-        description="Voyage AI embedding model"
+        description="Voyage AI embedding model (voyage-large-2, voyage-finance-2, etc.)"
     )
 
     # Vector database settings (Qdrant)

@@ -8,7 +8,7 @@ import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { SkipToMainContent } from '@/components/ui/SkipToMainContent';
 import { cn } from '@/lib/utils';
 
-function DashboardContent({ children }: { children: React.ReactNode }) {
+function DashboardContent({ children }: Readonly<{ children: React.ReactNode }>) {
   const { isMobileOpen, setIsMobileOpen } = useSidebar();
 
   return (
@@ -24,7 +24,6 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               setIsMobileOpen(false);
             }
           }}
-          role="button"
           tabIndex={0}
           aria-label="Close sidebar overlay"
           style={{ isolation: 'isolate' }}
@@ -48,9 +47,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
 export default function DashboardLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <ErrorBoundary>
       <ProtectedRoute>

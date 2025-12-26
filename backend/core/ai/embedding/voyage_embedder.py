@@ -20,7 +20,7 @@ class VoyageEmbedder:
                 "Voyage API key is required. Set VOYAGE_API_KEY in environment or settings.")
 
         self.model = settings.VOYAGE_EMBEDDING_MODEL
-        self.dimensions = 2048  # voyage-large-2 produces 2048-dimensional embeddings
+        self.dimensions = 2048  # Voyage models (voyage-large-2, voyage-finance-2) produce 2048-dimensional embeddings
 
         # Initialize Voyage AI client
         self.client = voyageai.Client(api_key=self.api_key)

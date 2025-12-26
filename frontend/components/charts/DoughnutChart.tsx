@@ -14,8 +14,8 @@ import type { ChartData } from '@/types/api';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DoughnutChartProps {
-  data: ChartData['data'];
-  options?: ChartOptions<'doughnut'>;
+  readonly data: ChartData['data'];
+  readonly options?: ChartOptions<'doughnut'>;
 }
 
 export function DoughnutChart({ data, options }: DoughnutChartProps) {

@@ -33,7 +33,7 @@ export function LogRocketInit() {
     }
 
     // Allow alphanumeric with forward slash (for project format like "5gs19i/finlens")
-    if (!/^[a-z0-9\/]+$/i.test(appId)) {
+    if (!/^[a-z0-9/]+$/i.test(appId)) {
       return;
     }
 
@@ -50,8 +50,12 @@ export function LogRocketInit() {
       
       // Set LogRocket as the error logger only if initialization succeeded
       setErrorLogger(new LogRocketErrorLogger());
-    } catch (_error) {
+    } catch (error) {
       // Error handled silently - LogRocket initialization failure shouldn't break the app
+      // Log to console in development for debugging
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('LogRocket initialization failed:', error);
+      }
     }
   }, []);
 

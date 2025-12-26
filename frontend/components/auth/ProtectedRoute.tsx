@@ -13,9 +13,9 @@ import { isAuthenticated } from '@/lib/auth';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
-  redirectTo?: string;
+  readonly children: React.ReactNode;
+  readonly fallback?: React.ReactNode;
+  readonly redirectTo?: string;
 }
 
 export function ProtectedRoute({ 
@@ -34,7 +34,7 @@ export function ProtectedRoute({
       setIsChecking(false);
 
       if (!authenticated) {
-        const currentPath = window.location.pathname;
+        const currentPath = globalThis.location.pathname;
         router.push(`${redirectTo}?redirect=${encodeURIComponent(currentPath)}`);
       }
     };

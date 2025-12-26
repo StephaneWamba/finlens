@@ -24,8 +24,8 @@ ChartJS.register(
 );
 
 interface BarChartProps {
-  data: ChartData['data'];
-  options?: ChartOptions<'bar'>;
+  readonly data: ChartData['data'];
+  readonly options?: ChartOptions<'bar'>;
 }
 
 export function BarChart({ data, options }: BarChartProps) {

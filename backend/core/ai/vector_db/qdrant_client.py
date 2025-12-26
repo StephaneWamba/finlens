@@ -718,7 +718,7 @@ def _ensure_collections_exist(client: QdrantClient) -> None:
         # Check if document_chunks collection exists
         if DOCUMENT_CHUNKS_COLLECTION not in collection_names:
             logger.info(f"Creating {DOCUMENT_CHUNKS_COLLECTION} collection...")
-            # Get embedding dimensions from current embedder
+            # Get embedding dimensions from current embedder (2048 for Voyage AI)
             from backend.core.ai.embedding.manager import get_embedding_manager
             embedding_manager = get_embedding_manager()
             embedding_dimensions = embedding_manager.get_embedding_dimensions()

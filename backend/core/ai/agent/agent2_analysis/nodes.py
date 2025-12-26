@@ -41,7 +41,7 @@ def analysis_node(state: AgentState) -> Dict[str, Any]:
         system_prompt = prompt_data["system_prompt"]
         user_prompt_template = prompt_data["user_prompt"]
 
-        # Format retrieved context (use metadata, not top-level fields)
+        # Format retrieved context (use metadata)
         context_text = "\n\n---\n\n".join([
             f"[{i+1}] Company: {chunk.metadata.get('company', 'Unknown')}, Year: {chunk.metadata.get('fiscal_year', chunk.metadata.get('year', 'N/A'))}\n{chunk.content}"
             for i, chunk in enumerate(retrieved_context)

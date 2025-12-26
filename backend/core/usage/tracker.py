@@ -13,7 +13,7 @@ including success rates, cost trends, and usage patterns over time.
 
 from typing import Optional, Dict, Any
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from backend.config.database.supabase_client import get_supabase_client
 from backend.core.users.service import user_service
@@ -178,7 +178,7 @@ class UsageTracker:
         try:
             self.supabase.table("users").update({
                 "queries_used_this_month": 0,
-                "last_query_reset": datetime.utcnow().isoformat()
+                "last_query_reset": datetime.now(timezone.utc).isoformat()
             }).eq("id", user_id).execute()
 
             logger.info(f"Reset monthly usage for user {user_id}")

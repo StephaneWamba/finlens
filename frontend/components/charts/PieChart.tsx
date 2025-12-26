@@ -14,8 +14,8 @@ import type { ChartData } from '@/types/api';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface PieChartProps {
-  data: ChartData['data'];
-  options?: ChartOptions<'pie'>;
+  readonly data: ChartData['data'];
+  readonly options?: ChartOptions<'pie'>;
 }
 
 export function PieChart({ data, options }: PieChartProps) {

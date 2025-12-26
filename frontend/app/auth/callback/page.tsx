@@ -20,8 +20,8 @@ function CallbackContent() {
     const handleCallback = async () => {
       try {
         // Check for error in query params or hash
-        const error = searchParams.get('error') || new URLSearchParams(window.location.hash.substring(1)).get('error');
-        const errorDescription = searchParams.get('error_description') || new URLSearchParams(window.location.hash.substring(1)).get('error_description');
+        const error = searchParams.get('error') || new URLSearchParams(globalThis.location.hash.substring(1)).get('error');
+        const errorDescription = searchParams.get('error_description') || new URLSearchParams(globalThis.location.hash.substring(1)).get('error_description');
         
         if (error) {
           setStatus('error');

@@ -97,10 +97,10 @@ export const Sidebar = memo(function Sidebar() {
       refetchSessions();
     };
 
-    window.addEventListener('session-updated', handleSessionUpdate);
+    globalThis.addEventListener('session-updated', handleSessionUpdate);
 
     return () => {
-      window.removeEventListener('session-updated', handleSessionUpdate);
+      globalThis.removeEventListener('session-updated', handleSessionUpdate);
     };
   }, [refetchSessions]);
 
@@ -231,9 +231,9 @@ export const Sidebar = memo(function Sidebar() {
               <ul className="space-y-1" role="list">
                 {sessions.map((session) => {
                   const isActive = isChatPage && 
-                    typeof window !== 'undefined' &&
-                    window.location &&
-                    new URLSearchParams(window.location.search).get('session') === session.session_id;
+                    typeof globalThis !== 'undefined' &&
+                    globalThis.location &&
+                    new URLSearchParams(globalThis.location.search).get('session') === session.session_id;
                   
                   const sessionTitle = session.last_message || 'New conversation';
                   const sessionTime = session.last_updated 

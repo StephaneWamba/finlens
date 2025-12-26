@@ -11,8 +11,8 @@ import { queryKeys } from '@/lib/api/queryKeys';
 import { cn } from '@/lib/utils';
 
 interface DocumentViewerProps {
-  documentId: string | null;
-  onClose: () => void;
+  readonly documentId: string | null;
+  readonly onClose: () => void;
 }
 
 export function DocumentViewer({ documentId, onClose }: DocumentViewerProps) {

@@ -11,8 +11,8 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LoadingSpinnerProps {
-  size?: 'sm' | 'md' | 'lg';
-  className?: string;
+  readonly size?: 'sm' | 'md' | 'lg';
+  readonly className?: string;
 }
 
 export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) {
@@ -33,9 +33,9 @@ export function LoadingSpinner({ size = 'md', className }: LoadingSpinnerProps) 
 }
 
 interface LoadingCardProps {
-  lines?: number;
-  showHeader?: boolean;
-  className?: string;
+  readonly lines?: number;
+  readonly showHeader?: boolean;
+  readonly className?: string;
 }
 
 export function LoadingCard({ lines = 3, showHeader = true, className }: LoadingCardProps) {
@@ -53,8 +53,8 @@ export function LoadingCard({ lines = 3, showHeader = true, className }: Loading
         </div>
       )}
       <div className="space-y-2" aria-hidden="true">
-        {Array.from({ length: lines }).map((_, i) => (
-          <Skeleton key={i} className="h-4 w-full" />
+        {Array.from({ length: lines }, (_, i) => (
+          <Skeleton key={`skeleton-${i}`} className="h-4 w-full" />
         ))}
       </div>
       <span className="sr-only">Loading content, please wait</span>
@@ -63,11 +63,11 @@ export function LoadingCard({ lines = 3, showHeader = true, className }: Loading
 }
 
 interface LoadingPageProps {
-  message?: string;
-  showSpinner?: boolean;
-  action?: {
-    label: string;
-    onClick: () => void;
+  readonly message?: string;
+  readonly showSpinner?: boolean;
+  readonly action?: {
+    readonly label: string;
+    readonly onClick: () => void;
   };
 }
 
@@ -99,8 +99,8 @@ export function LoadingPage({
 }
 
 interface LoadingInlineProps {
-  text?: string;
-  size?: 'sm' | 'md' | 'lg';
+  readonly text?: string;
+  readonly size?: 'sm' | 'md' | 'lg';
 }
 
 export function LoadingInline({ text = 'Loading...', size = 'sm' }: LoadingInlineProps) {
@@ -113,9 +113,9 @@ export function LoadingInline({ text = 'Loading...', size = 'sm' }: LoadingInlin
 }
 
 interface LoadingButtonProps {
-  children: React.ReactNode;
-  isLoading?: boolean;
-  className?: string;
+  readonly children: React.ReactNode;
+  readonly isLoading?: boolean;
+  readonly className?: string;
 }
 
 export function LoadingButton({ children, isLoading, className }: LoadingButtonProps) {

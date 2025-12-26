@@ -27,11 +27,6 @@ async def chat_query(
 ):
     """Process a chat query through the 3-agent system."""
     try:
-        # Check if client disconnected
-        def check_disconnected():
-            if http_request.client is None:
-                return True
-            return False
         # Use authenticated user's ID instead of request.user_id
         user_id = current_user["id"]
 
@@ -71,10 +66,8 @@ async def chat_query(
         except asyncio.CancelledError:
             logger.info(
                 f"Query cancelled for user={user_id}, session={session_id}")
-            raise HTTPException(
-                status_code=499,  # Client Closed Request
-                detail="Request was cancelled"
-            )
+            # Re-raise CancelledError after cleanup
+            raise
 
         # Get cost after query
         cost_after = llm_manager.get_cost_summary().get("total_cost", 0.0)
@@ -169,8 +162,6 @@ async def list_sessions(
 ):
     """Get list of all chat sessions for the current user."""
     try:
-        pass
-
         user_id = current_user["id"]
         from backend.core.ai.memory.manager import get_memory_manager
         memory_manager = get_memory_manager()
@@ -215,8 +206,6 @@ async def get_session(
 ):
     """Get session information with paginated messages."""
     try:
-        pass
-
         user_id = current_user["id"]
         from backend.core.ai.memory.manager import get_memory_manager
         memory_manager = get_memory_manager()
@@ -229,7 +218,6 @@ async def get_session(
 
         # Aggregate all messages from all conversations in the session
         all_messages = []
-        total_messages = 0
 
         logger.info(
             f"Retrieved {len(conversations)} conversations for session {session_id}")
@@ -240,7 +228,6 @@ async def get_session(
             if messages:
                 if isinstance(messages, list):
                     all_messages.extend(messages)
-                    total_messages += len(messages)
                 else:
                     logger.warning(
                         f"Conversation {i}: messages is not a list, type={type(messages)}")

@@ -105,14 +105,15 @@ class VastAIClient:
                 try:
                     error_detail = e.response.json()
                     error_msg += f" - {error_detail}"
-                except:
+                except (ValueError, KeyError) as json_error:
                     error_msg += f" - {e.response.text[:200]}"
+                    logger.debug(f"JSON parsing error: {json_error}")
             logger.error(error_msg)
-            raise Exception(error_msg) from e
+            raise httpx.HTTPStatusError(error_msg, request=e.request, response=e.response) from e
         except httpx.RequestError as e:
             error_msg = f"Failed to connect to Vast.ai server: {e}"
             logger.error(error_msg)
-            raise Exception(error_msg) from e
+            raise httpx.RequestError(error_msg, request=e.request) from e
 
     async def get_task_status(self, task_id: str) -> Dict[str, Any]:
         """

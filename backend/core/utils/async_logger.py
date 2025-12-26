@@ -69,12 +69,9 @@ class AsyncLogger:
         """Get the underlying logger instance."""
         return self.logger
 
-    def stop(self, timeout: float = 5.0):
+    def stop(self):
         """
         Stop the async listener (call on shutdown).
-
-        Args:
-            timeout: Maximum time to wait for listener to stop (seconds)
         """
         if self._stopped or not self.listener:
             return
@@ -84,7 +81,7 @@ class AsyncLogger:
             # Stop the listener (this will finish processing queued records)
             # QueueListener.stop() sets a flag and waits for the thread to finish
             self.listener.stop()
-        except (AttributeError, RuntimeError, Exception):
+        except Exception:
             # Ignore errors during shutdown (listener may already be stopped)
             # AttributeError: listener may be None
             # RuntimeError: thread may already be stopped

@@ -6,7 +6,7 @@ Provides cross-session memory retrieval and conversation summarization.
 """
 
 from typing import List, Optional, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import UUID
 import logging
 import threading
@@ -46,7 +46,7 @@ class MemoryManager:
             if CONVERSATION_MEMORY_COLLECTION not in collection_names:
                 logger.info(
                     f"Creating {CONVERSATION_MEMORY_COLLECTION} collection")
-                # Get embedding dimensions from current embedder
+                # Get embedding dimensions from current embedder (2048 for Voyage AI)
                 embedding_dimensions = self.embedding_manager.get_embedding_dimensions()
                 self.qdrant_client.client.create_collection(
                     collection_name=CONVERSATION_MEMORY_COLLECTION,
@@ -58,32 +58,7 @@ class MemoryManager:
                 logger.info(
                     f"Created {CONVERSATION_MEMORY_COLLECTION} collection with {embedding_dimensions} dimensions")
             else:
-                # Collection exists - check if dimensions match current embedder
-                collection_info = self.qdrant_client.client.get_collection(CONVERSATION_MEMORY_COLLECTION)
-                current_dimensions = collection_info.config.params.vectors.size
-
-                expected_dimensions = self.embedding_manager.get_embedding_dimensions()
-
-                if current_dimensions != expected_dimensions:
-                    logger.warning(
-                        f"Collection {CONVERSATION_MEMORY_COLLECTION} has {current_dimensions} dimensions "
-                        f"but embedder expects {expected_dimensions}. Recreating collection..."
-                    )
-
-                    # Delete old collection
-                    self.qdrant_client.client.delete_collection(CONVERSATION_MEMORY_COLLECTION)
-                    logger.info(f"Deleted old {CONVERSATION_MEMORY_COLLECTION} collection")
-
-                    # Create new collection with correct dimensions
-                    self.qdrant_client.client.create_collection(
-                        collection_name=CONVERSATION_MEMORY_COLLECTION,
-                        vectors_config={
-                            "size": expected_dimensions,
-                            "distance": "Cosine"
-                        }
-                    )
-                    logger.info(
-                        f"Recreated {CONVERSATION_MEMORY_COLLECTION} collection with {expected_dimensions} dimensions")
+                logger.debug(f"{CONVERSATION_MEMORY_COLLECTION} collection already exists")
         except Exception as e:
             logger.error(f"Error ensuring collection exists: {e}")
             raise
@@ -117,7 +92,7 @@ class MemoryManager:
                 "messages": [msg.model_dump() for msg in messages],
                 "summary": summary,
                 "metadata": metadata.model_dump() if hasattr(metadata, 'model_dump') else (metadata if isinstance(metadata, dict) else None),
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat()
             }
 
             result = self.supabase.table("conversations").insert(
@@ -141,7 +116,7 @@ class MemoryManager:
                             "user_id": user_id,
                             "session_id": session_id,
                             "conversation_id": str(conversation_id),
-                            "timestamp": datetime.utcnow().isoformat(),
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
                             "summary": summary,
                             "metadata": metadata.model_dump() if metadata else {}
                         }
@@ -234,7 +209,7 @@ class MemoryManager:
         """
         try:
             update_data = {
-                "updated_at": datetime.utcnow().isoformat()
+                "updated_at": datetime.now(timezone.utc).isoformat()
             }
 
             if summary:

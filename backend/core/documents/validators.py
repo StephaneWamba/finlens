@@ -7,6 +7,9 @@ from backend.config.settings import settings
 
 logger = logging.getLogger(__name__)
 
+# MIME type constants
+MIME_TYPE_JPEG = 'image/jpeg'
+
 
 class DocumentValidator:
     """Validator for document file uploads."""
@@ -38,8 +41,8 @@ class DocumentValidator:
             expected_mime_types = {
                 '.pdf': ['application/pdf'],
                 '.png': ['image/png'],
-                '.jpg': ['image/jpeg'],
-                '.jpeg': ['image/jpeg']
+                '.jpg': [MIME_TYPE_JPEG],
+                '.jpeg': [MIME_TYPE_JPEG]
             }
 
             expected = expected_mime_types.get(extension, [])
@@ -64,8 +67,8 @@ class DocumentValidator:
         mime_types = {
             '.pdf': 'application/pdf',
             '.png': 'image/png',
-            '.jpg': 'image/jpeg',
-            '.jpeg': 'image/jpeg'
+            '.jpg': MIME_TYPE_JPEG,
+            '.jpeg': MIME_TYPE_JPEG
         }
 
         return mime_types.get(file_extension.lower(), 'application/octet-stream')

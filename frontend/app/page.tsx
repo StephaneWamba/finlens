@@ -34,9 +34,11 @@ function OAuthErrorHandler() {
     // If OAuth error detected, redirect to callback page to handle it properly
     if (error && errorCode) {
       const params = new URLSearchParams();
-      if (error) params.set('error', error);
-      if (errorCode) params.set('error_code', errorCode);
-      if (errorDescription) params.set('error_description', errorDescription);
+      params.set('error', error);
+      params.set('error_code', errorCode);
+      if (errorDescription) {
+        params.set('error_description', errorDescription);
+      }
       
       router.replace(`/auth/callback?${params.toString()}`);
     }

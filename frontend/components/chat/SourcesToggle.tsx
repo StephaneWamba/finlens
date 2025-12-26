@@ -11,7 +11,7 @@ interface Source {
 }
 
 interface SourcesToggleProps {
-  sources: Source[];
+  readonly sources: Source[];
 }
 
 export function SourcesToggle({ sources }: SourcesToggleProps) {
@@ -46,7 +46,7 @@ export function SourcesToggle({ sources }: SourcesToggleProps) {
         <div className="mt-2 space-y-1.5 pl-6">
           {sources.map((source, index) => (
             <div
-              key={index}
+              key={`${source.company}-${source.year}-${source.page}-${index}`}
               className="text-xs text-gray-600 flex items-start gap-2"
             >
               <span className="text-gray-400 font-mono mt-0.5">•</span>

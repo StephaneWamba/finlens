@@ -73,7 +73,7 @@ class EmbeddingManager:
     def get_embedding_dimensions(self) -> int:
         """Get the embedding dimensions for the current embedder."""
         if isinstance(self.embedder, VoyageEmbedder):
-            return 2048  # voyage-large-2 dimensions
+            return 2048  # Voyage models (voyage-large-2, voyage-finance-2) produce 2048 dimensions
         else:
             return settings.EMBEDDING_DIMENSIONS
 
