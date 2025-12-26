@@ -8,13 +8,13 @@
   <img src="https://img.shields.io/badge/Status-Portfolio--Project-blue.svg" alt="Status">
 </div>
 
-**Portfolio Project** — Production-ready codebase demonstrating enterprise AI system architecture.
+**Portfolio Project** — Production-ready codebase demonstrating AI system architecture.
 
 ## 🚀 Overview
 
 **FinLens** extracts actionable insights from unstructured financial documents. Analysts spend hours manually reviewing dense SEC filings, annual reports, and regulatory documents—often 1000+ pages of financial statements, risk disclosures, and regulatory language.
 
-FinLens processes these documents through GPU-accelerated parsing and multi-agent AI analysis, delivering instant answers to natural language queries. What takes hours of careful reading and cross-referencing is accomplished in seconds.
+FinLens processes these documents through GPU-accelerated parsing and multi-agent AI analysis, delivering accurate answers to natural language queries. What takes hours of careful reading and cross-referencing is accomplished with high accuracy through advanced AI analysis.
 
 ## Project Status
 
@@ -27,7 +27,7 @@ FinLens is a portfolio project implementing production-grade AI infrastructure f
 | **🤖 Multi-Agent RAG**       | 3-agent LangGraph orchestration for complex financial queries   |
 | **⚡ GPU Processing**        | MinerU-powered document parsing on dedicated GPU infrastructure |
 | **🔍 Hybrid Search**         | Semantic + keyword search across vectorized financial documents |
-| **💬 Real-time Chat**        | Conversational interface with memory management                 |
+| **💬 Chat**                   | Conversational interface with memory management                 |
 | **📊 Financial Analytics**   | SEC filing analysis, company comparisons, trend insights        |
 | **🔒 Enterprise Security**   | Rate limiting, authentication, data isolation                   |
 | **📈 Scalable Architecture** | Railway deployment with Supabase + Qdrant + Redis               |
@@ -38,7 +38,7 @@ The multi-agent system handles complex analytical queries through specialized wo
 
 - **Query Decomposition**: Agent 1 breaks down multi-part questions into sub-queries, retrieves relevant context from conversation memory, and performs hybrid search across documents
 - **Multi-Document Analysis**: Agent 2 analyzes retrieved chunks from multiple documents, extracts financial metrics, and performs cross-company comparisons
-- **Synthesis & Validation**: Agent 3 generates structured responses with citations, creates data visualizations (Chart.js), and validates answer quality
+- **Synthesis & Validation**: Agent 3 generates structured responses with citations, creates data visualizations (Chart.js), and validates answer accuracy
 
 **Supported Query Types:**
 
@@ -74,15 +74,6 @@ graph TB
     style I fill:#e8f5e8
 ```
 
-## 📊 Performance Metrics
-
-- **Document Processing**: GPU-accelerated parsing with MinerU OCR
-- **Query Response**: 10-15 seconds average for complex multi-document queries
-- **Retrieval**: Hybrid semantic + keyword search (TOP_K_INITIAL=30, TOP_K_FINAL=8)
-- **Chunking**: Semantic boundaries with max 2000 characters per chunk
-- **Embeddings**: 2048-dimensional vectors (Voyage AI voyage-large-2)
-- **User Documents**: Each user uploads and queries their own document collection
-
 ## 🛠️ Technology Stack
 
 ### Backend Services
@@ -90,7 +81,7 @@ graph TB
 - **FastAPI** - High-performance async web framework
 - **LangGraph** - Multi-agent workflow orchestration
 - **Qdrant** - Vector database for semantic search
-- **Supabase** - PostgreSQL with real-time subscriptions
+- **Supabase** - PostgreSQL with subscriptions
 - **Redis** - Task queuing and caching
 - **Voyage AI** - State-of-the-art embedding generation
 
@@ -194,9 +185,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **VastAI** - GPU infrastructure for document processing
 - **Supabase** - Open-source Firebase alternative
 - **Railway** - Modern cloud deployment platform
-
-## 📞 Contact
-
-For questions or issues, open a [GitHub Issue](https://github.com/StephaneWamba/finlens/issues).
 
 ---

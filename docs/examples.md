@@ -198,7 +198,7 @@ Sources:
 
 ## Document Processing Examples
 
-Users upload their own documents. Processing time and chunk counts depend on document size.
+Users upload their own documents. The system processes documents with high accuracy through GPU-accelerated parsing and semantic chunking.
 
 ### Large Document Handling
 
@@ -206,12 +206,12 @@ Users upload their own documents. Processing time and chunk counts depend on doc
 
 **Processing:**
 
-- GPU parsing: ~5 minutes for full document (MinerU OCR)
+- GPU parsing with MinerU OCR for accurate text extraction
 - Chunking: 2,500+ semantic chunks created (max 2000 chars per chunk)
 - Embedding: Voyage AI embeddings generated (2048 dimensions)
 - Indexing: Stored in Qdrant with metadata (company, year, document_type, fiscal_quarter, etc.)
 
-**Result:** Document indexed and queryable within 5-10 minutes
+**Result:** Document indexed and queryable with high accuracy
 
 ### Batch Processing
 
@@ -221,8 +221,7 @@ Users upload their own documents. Processing time and chunk counts depend on doc
 
 - Documents queued in Redis
 - Parallel GPU processing (2 workers)
-- Total processing time: ~25 minutes for 10 documents
-- All documents indexed and ready for queries
+- All documents indexed and ready for accurate queries
 
 ## API Usage Examples
 
@@ -252,13 +251,3 @@ curl -X POST https://YOUR_DEPLOYMENT_URL/v1/chat/query \
   }'
 ```
 
-## Performance Characteristics
-
-| Document Size | Processing Time | Chunks Generated |
-| ------------- | --------------- | ---------------- |
-| 100 pages     | ~1 minute       | 500 chunks       |
-| 300 pages     | ~3 minutes      | 1,500 chunks     |
-| 500 pages     | ~5 minutes      | 2,500 chunks     |
-| 1000+ pages   | ~10 minutes     | 5,000+ chunks    |
-
-Query response times average 10-15 seconds for complex multi-document queries with full agent workflow execution.
